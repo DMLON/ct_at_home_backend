@@ -12,20 +12,24 @@ function generateRandomInteger(max) {
 
 
 const app = express();
-const db = new container.Container('./products.json')
+const db = new container.Container('./products.json');
 const PORT = 8080;
 const server = app.listen(PORT,()=>{
     console.log(`HTTP Server listening on port ${server.address().port}`);
 })
 
+app.get('/',async (req,res)=>{
+    res.send("Database OK!");
+});
+
 app.get('/products',async (req,res)=>{
-    products = await db.getAll()
+    products = await db.getAll();
     res.send(products);
 });
 
 app.get('/productRandom',async (req,res)=>{
-    products = await db.getAll()
-    randomIdx = generateRandomInteger(products.length)
-    res.send(products[randomIdx])
+    products = await db.getAll();
+    randomIdx = generateRandomInteger(products.length);
+    res.send(products[randomIdx]);
 });
 
