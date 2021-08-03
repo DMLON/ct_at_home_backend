@@ -144,7 +144,9 @@ async function testContenedor(contenedor){
     }
 }
 
-const contenedorProductos = new Container('./productos.json', 4);
-testContenedor(contenedorProductos);
+function test_container(){
+    const contenedorProductos = new Container('./products.json', 4);
+    testContenedor(contenedorProductos);
+}
 
-export default Container
+exports.Container = Container;
