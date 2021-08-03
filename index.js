@@ -18,12 +18,12 @@ const server = app.listen(PORT,()=>{
     console.log(`HTTP Server listening on port ${server.address().port}`);
 })
 
-app.get('/productos',async (req,res)=>{
+app.get('/products',async (req,res)=>{
     products = await db.getAll()
     res.send(products);
 });
 
-app.get('/productoRandom',async (req,res)=>{
+app.get('/productRandom',async (req,res)=>{
     products = await db.getAll()
     randomIdx = generateRandomInteger(products.length)
     res.send(products[randomIdx])
