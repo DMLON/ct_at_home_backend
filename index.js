@@ -22,12 +22,12 @@ app.get('/',async (req,res)=>{
     res.send(JSON.stringify({status:'database ok'}));
 });
 
-app.get('/products',async (req,res)=>{
+app.get('/productos',async (req,res)=>{
     products = await db.getAll();
     res.send(products);
 });
 
-app.get('/productRandom',async (req,res)=>{
+app.get('/productoRandom',async (req,res)=>{
     products = await db.getAll();
     randomIdx = generateRandomInteger(products.length);
     res.send(products[randomIdx]);
