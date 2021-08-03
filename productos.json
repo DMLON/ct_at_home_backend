@@ -1,0 +1,32 @@
+[
+    {
+        "title": "Banana",
+        "price": 500,
+        "thumbnail": "https://imagenes.elpais.com/resizer/ASFQnPIFc0M2AkhF3UDX5jxb-R8=/414x0/cloudfront-eu-central-1.images.arcpublishing.com/prisa/HE3SMC3L7Z7XENXLHLLKE3CDEA.jpg",
+        "id": 1
+    },
+    {
+        "title": "Banana",
+        "price": 500,
+        "thumbnail": "https://imagenes.elpais.com/resizer/ASFQnPIFc0M2AkhF3UDX5jxb-R8=/414x0/cloudfront-eu-central-1.images.arcpublishing.com/prisa/HE3SMC3L7Z7XENXLHLLKE3CDEA.jpg",
+        "id": 2
+    },
+    {
+        "title": "Banana",
+        "price": 500,
+        "thumbnail": "https://imagenes.elpais.com/resizer/ASFQnPIFc0M2AkhF3UDX5jxb-R8=/414x0/cloudfront-eu-central-1.images.arcpublishing.com/prisa/HE3SMC3L7Z7XENXLHLLKE3CDEA.jpg",
+        "id": 3
+    },
+    {
+        "title": "Banana",
+        "price": 500,
+        "thumbnail": "https://imagenes.elpais.com/resizer/ASFQnPIFc0M2AkhF3UDX5jxb-R8=/414x0/cloudfront-eu-central-1.images.arcpublishing.com/prisa/HE3SMC3L7Z7XENXLHLLKE3CDEA.jpg",
+        "id": 4
+    },
+    {
+        "title": "Banana",
+        "price": 500,
+        "thumbnail": "https://imagenes.elpais.com/resizer/ASFQnPIFc0M2AkhF3UDX5jxb-R8=/414x0/cloudfront-eu-central-1.images.arcpublishing.com/prisa/HE3SMC3L7Z7XENXLHLLKE3CDEA.jpg",
+        "id": 5
+    }
+]
