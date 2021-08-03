@@ -19,7 +19,7 @@ const server = app.listen(PORT,()=>{
 })
 
 app.get('/',async (req,res)=>{
-    res.send("Database OK!");
+    res.send(JSON.stringify({status:'database ok'}));
 });
 
 app.get('/products',async (req,res)=>{
