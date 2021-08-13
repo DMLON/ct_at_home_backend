@@ -4,11 +4,14 @@
   "description": "E-Commerce of several 3D printed products",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node index.js",
+    "debug": "nodemon --inspect index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "joi": "^17.4.2",
+    "method-override": "^3.0.0"
   }
 }

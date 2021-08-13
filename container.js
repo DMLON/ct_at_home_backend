@@ -22,19 +22,30 @@ class Container{
         try{
             const content = await this.getAll();
             const lastId = await this._getLastId(content);
-
-            object.id = lastId + 1;
-
-            content.push(object);
-
+            let update = false;
+            let idx = lastId;
+            // If has id, means it's an update
+            if(object.id != undefined){
+                //update
+                idx = content.findIndex(el=>el.id==object.id);
+                content[idx] = object;
+                update = true;
+            }
+            else{
+                object.id = lastId + 1;
+                content.push(object);
+            }
             try{
                 await fs.promises.writeFile(this.filename,JSON.stringify(content,null,this.indentation),"utf-8");
             }
             catch(error){
                 throw `Error when writing to file: ${error}`;
             }
-
-            return lastId + 1;
+            
+            if(update)
+                return idx;
+            else
+                return lastId + 1;
         }
         catch(error){
             throw `Error while saving elements: ${error}`;

@@ -1,5 +1,8 @@
 const express = require('express');
-const container = require('./container');
+const { router_products } = require('./routers/productos');
+var methodOverride = require("method-override");
+
+
 
 /**
  * Returns a number generated randomly between 0 and max - 1
@@ -12,24 +15,25 @@ function generateRandomInteger(max) {
 
 
 const app = express();
-const db = new container.Container('./products.json');
+app.use(methodOverride("_method"))
+// Use Json
+app.use(express.json());
+// Use url encoding on extended mode
+app.use(express.urlencoded({extended: true}));
+// Set api/products router
+app.use('/api/products',router_products)
+
+app.use("/public",express.static('public'));
+
+// HTML5 only supports GET and POSt, need to use method override to add PUT and DELETE
+
+
 const PORT = 8080;
 const server = app.listen(PORT,()=>{
     console.log(`HTTP Server listening on port ${server.address().port}`);
 })
 
 app.get('/',async (req,res)=>{
-    res.send(JSON.stringify({status:'database ok'}));
-});
-
-app.get('/productos',async (req,res)=>{
-    products = await db.getAll();
-    res.send(products);
-});
-
-app.get('/productoRandom',async (req,res)=>{
-    products = await db.getAll();
-    randomIdx = generateRandomInteger(products.length);
-    res.send(products[randomIdx]);
+    res.sendFile(__dirname+'/public/index.html');
 });
 

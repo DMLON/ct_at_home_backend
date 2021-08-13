@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Public Test</title>
+        <style>
+            h2{
+                align-self: center;
+                justify-self: center;
+            }
+            .container {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 40px;
+            }
+
+            .flex-col-center {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .label-input {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .grid{
+                
+                display: grid;
+                grid-template-columns: repeat(5, 1fr);
+                gap:20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="grid">
+                <h2>Get All</h2>
+                <h2>Get Specific</h2>
+                <h2>Post New</h2>
+                <h2>Put</h2>
+                <h2>Delete</h2>
+
+                <form action="/api/products" method="GET" class="flex-col-center" id="searchAll">
+                    <button>Search</button>
+                </form>
+
+                <form action="/api/products" method="GET" class="flex-col-center" id="search-form">
+                    <div class="label-input">
+                        <label for="productIdSpecific">Product ID</label>
+                        <input type="text" name="productId" id="productIdSpecific" />
+                    </div>
+                    <button>Search</button>
+                </form>
+
+                <form action="/api/products" method="POST" class="flex-col-center" id="post-form">
+                    <div class="label-input">
+                        <label for="productIdPost">Title</label>
+                        <input type="text" name="title" id="productTitlePost" />
+                    </div>
+                        <div class="label-input">
+                        <label for="productPricePost">Price</label>
+                        <input type="text" name="price" id="productPricePost" min="0"/>
+                    </div>
+                    <div class="label-input">
+                        <label for="productThumbnailPost">Thumbnail</label>
+                        <input type="text" name="thumbnail" id="productThumbnailPost" />
+                    </div>
+                    <button>Post</button>
+                </form>
+
+                <form action="/api/products" method="POST" class="flex-col-center" id="put-form">
+                    <div class="label-input">
+                        <label for="productIdPut">Product ID</label>
+                        <input type="text" name="productId" id="productIdPut" />
+                    </div>
+                    <div class="label-input">
+                        <label for="productTitlePut">Title</label>
+                        <input type="text" name="title" id="productTitlePut" />
+                    </div>
+                        <div class="label-input">
+                        <label for="productPricePut">Price</label>
+                        <input type="text" name="price" id="productPricePut" min="0"/>
+                    </div>
+                    <div class="label-input">
+                        <label for="productThumbnailPut">Thumbnail</label>
+                        <input type="text" name="thumbnail" id="productThumbnailPut" />
+                    </div>
+                    
+                    <button>Put</button>
+                </form>
+
+                <form action="/api/products" method="POST" class="flex-col-center" id="delete-form">
+                    <div class="label-input">
+                        <label for="productIdDelete">Product ID</label>
+                        <input type="text" name="productId" id="productIdDelete" />
+                    </div>
+                    <button>Delete</button>
+                </form>
+            </div>           
+        </div>
+        <script>
+            // Add Event listener for Get specific product by ID
+            document.querySelector("#search-form").addEventListener("submit", function(event) {
+                event.preventDefault();
+                const id = document.querySelector('#productIdSpecific').value;
+                const action =`/api/products/${id}`
+                document.querySelector("#search-form").action = action;
+                document.querySelector("#search-form").submit();
+            });
+
+            // Add Event listener for Put product
+            document.querySelector("#put-form").addEventListener("submit", function(event) {
+                event.preventDefault();
+                const id = document.querySelector('#productIdPut').value;
+                const action =`/api/products/${id}/?_method=PUT`
+                document.querySelector("#put-form").action = action;
+                document.querySelector("#put-form").submit();
+            });
+
+            // Add Event listener for Delete product
+            document.querySelector("#delete-form").addEventListener("submit", function(event) {
+                event.preventDefault();
+                const id = document.querySelector('#productIdDelete').value;
+                const action =`/api/products/${id}/?_method=DELETE`
+                document.querySelector("#delete-form").action = action;
+                document.querySelector("#delete-form").submit();
+            });
+        </script>
+    </body>
+</html>

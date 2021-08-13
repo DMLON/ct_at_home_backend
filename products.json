@@ -1,8 +1,8 @@
 [
     {
-        "title": "banana",
-        "price": 2542,
-        "thumbnail": "images/banana.jpg",
+        "title": "ggg",
+        "price": "1",
+        "thumbnail": "dasd",
         "id": 1
     },
     {
@@ -70,5 +70,23 @@
         "price": 3791,
         "thumbnail": "images/crowbar.jpg",
         "id": 12
+    },
+    {
+        "title": "ttt",
+        "price": "ppp",
+        "thumbnail": "ttt",
+        "id": 13
+    },
+    {
+        "title": "ttt",
+        "price": "ppp",
+        "thumbnail": "ttt",
+        "id": 14
+    },
+    {
+        "title": "ttt",
+        "price": "ppp",
+        "thumbnail": "ttt",
+        "id": 15
     }
 ]
