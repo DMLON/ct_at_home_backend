@@ -4,4 +4,4 @@ This repository has the backend part of a future e-commerce website that sells 3
 
 This backend can be seen working on this glitch site
 
-https://glitch.com/edit/#!/cthomeproductos?path=products.json%3A68%3A5
+https://cthomeproductos.glitch.me/productos
