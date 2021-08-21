@@ -6,7 +6,7 @@ const validateProduct = require('../middlewares/productValidator');
 
 const db = new container.Container('./products.json');
 
-const router_products = new Router()
+const router_products = new Router();
 
 router_products.get('/', async (req,res)=>{
     console.log('GET /products');
@@ -18,7 +18,7 @@ router_products.get('/', async (req,res)=>{
         res.send({error:error});
     }
     
-})
+});
 
 router_products.get('/:id', async (req,res)=>{
     console.log('GET /products',req.params.id);
@@ -32,14 +32,29 @@ router_products.get('/:id', async (req,res)=>{
     catch(error){
         res.send({error:error});
     }
-})
+});
+
 router_products.post('/',validateProduct, async (req,res)=>{
     const {title,price,thumbnail} = req.body;
-    const id = await db.save({title:title,price:price,thumbnail:thumbnail})
-
-    console.log('POST /products');
-    res.send({id:id});
-})
+    let response = {id:-1};
+    try{
+        const id = await db.save({title:title,price:price,thumbnail:thumbnail})//     // console.log('POST /products');
+        response = {id:id}
+    }
+    catch(error){
+        // console.error(error);
+        response = {error:error};
+        console.log(error);
+    }
+    console.log("POST /products");
+    try{
+        return res.send(response);
+    }
+    catch(error){
+        console.error(error);
+    }
+    
+});
 
 router_products.put('/:id',validateProduct,async (req,res)=>{
     
@@ -60,18 +75,20 @@ router_products.put('/:id',validateProduct,async (req,res)=>{
             //Me tira error al hacer el save, no encuentro la forma de solucionar
             // Parece que se envia el header antes de que se mande todo que deice "Cannot PUT"
             res.send(product);
+            
         }
     }
     catch(error){
         console.log(error);
         res.send({error:error});
     }
-})
+});
 
-router_products.delete('/:id',validateProduct, async (req,res)=>{
+router_products.delete('/:id', async (req,res)=>{
     console.log('DELETE /products');
     try{
-        product = await db.deleteById(req.params.id);
+        await db.deleteById(req.params.id);
+        res.send({status:"success"});
     }
     catch(error){
         console.log(error);

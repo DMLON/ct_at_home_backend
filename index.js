@@ -1,6 +1,5 @@
 const express = require('express');
 const { router_products } = require('./routers/productos');
-var methodOverride = require("method-override");
 
 
 
@@ -15,7 +14,7 @@ function generateRandomInteger(max) {
 
 
 const app = express();
-app.use(methodOverride("_method"))
+
 // Use Json
 app.use(express.json());
 // Use url encoding on extended mode

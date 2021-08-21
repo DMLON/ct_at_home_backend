@@ -42,25 +42,10 @@
     <body>
         <div class="container">
             <div class="grid">
-                <h2>Get All</h2>
-                <h2>Get Specific</h2>
+
                 <h2>Post New</h2>
-                <h2>Put</h2>
-                <h2>Delete</h2>
-
-                <form action="/api/products" method="GET" class="flex-col-center" id="searchAll">
-                    <button>Search</button>
-                </form>
-
-                <form action="/api/products" method="GET" class="flex-col-center" id="search-form">
-                    <div class="label-input">
-                        <label for="productIdSpecific">Product ID</label>
-                        <input type="text" name="productId" id="productIdSpecific" />
-                    </div>
-                    <button>Search</button>
-                </form>
-
-                <form action="/api/products" method="POST" class="flex-col-center" id="post-form">
+                
+                <div class="flex-col-center" id="post-form">
                     <div class="label-input">
                         <label for="productIdPost">Title</label>
                         <input type="text" name="title" id="productTitlePost" />
@@ -73,65 +58,29 @@
                         <label for="productThumbnailPost">Thumbnail</label>
                         <input type="text" name="thumbnail" id="productThumbnailPost" />
                     </div>
-                    <button>Post</button>
-                </form>
-
-                <form action="/api/products" method="POST" class="flex-col-center" id="put-form">
-                    <div class="label-input">
-                        <label for="productIdPut">Product ID</label>
-                        <input type="text" name="productId" id="productIdPut" />
-                    </div>
-                    <div class="label-input">
-                        <label for="productTitlePut">Title</label>
-                        <input type="text" name="title" id="productTitlePut" />
-                    </div>
-                        <div class="label-input">
-                        <label for="productPricePut">Price</label>
-                        <input type="text" name="price" id="productPricePut" min="0"/>
-                    </div>
-                    <div class="label-input">
-                        <label for="productThumbnailPut">Thumbnail</label>
-                        <input type="text" name="thumbnail" id="productThumbnailPut" />
-                    </div>
-                    
-                    <button>Put</button>
-                </form>
-
-                <form action="/api/products" method="POST" class="flex-col-center" id="delete-form">
-                    <div class="label-input">
-                        <label for="productIdDelete">Product ID</label>
-                        <input type="text" name="productId" id="productIdDelete" />
-                    </div>
-                    <button>Delete</button>
-                </form>
+                    <button id="post-btn">Post</button>
+                </div>
             </div>           
         </div>
         <script>
             // Add Event listener for Get specific product by ID
-            document.querySelector("#search-form").addEventListener("submit", function(event) {
+            document.querySelector("#post-btn").addEventListener("click", async (event) => {
                 event.preventDefault();
-                const id = document.querySelector('#productIdSpecific').value;
-                const action =`/api/products/${id}`
-                document.querySelector("#search-form").action = action;
-                document.querySelector("#search-form").submit();
-            });
+                const action =`/api/products`
+                const title = document.querySelector("#productTitlePost").value;
+                const price = document.querySelector("#productPricePost").value;
+                const thumbnail = document.querySelector("#productThumbnailPost").value;
 
-            // Add Event listener for Put product
-            document.querySelector("#put-form").addEventListener("submit", function(event) {
-                event.preventDefault();
-                const id = document.querySelector('#productIdPut').value;
-                const action =`/api/products/${id}/?_method=PUT`
-                document.querySelector("#put-form").action = action;
-                document.querySelector("#put-form").submit();
-            });
+                const resp = await fetch(action,{
+                    method:'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({title:title,price:price,thumbnail:thumbnail})
+                });
 
-            // Add Event listener for Delete product
-            document.querySelector("#delete-form").addEventListener("submit", function(event) {
-                event.preventDefault();
-                const id = document.querySelector('#productIdDelete').value;
-                const action =`/api/products/${id}/?_method=DELETE`
-                document.querySelector("#delete-form").action = action;
-                document.querySelector("#delete-form").submit();
+                console.log(await resp.json());
             });
         </script>
     </body>

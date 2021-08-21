@@ -16,7 +16,6 @@ async function validateProduct(req,res,next){
     catch(error){
         next(error)
     }
-    next();
 }
 
 module.exports = validateProduct;
