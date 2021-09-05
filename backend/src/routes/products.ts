@@ -92,7 +92,7 @@ router_products.delete('/:id',validateUser, async (req,res)=>{
     console.log('DELETE /products');
     try{
         await db.deleteById(req.params.id);
-        res.send({status:"success"});
+        res.send({status:"ok"});
     }
     catch(error){
         console.log(error);

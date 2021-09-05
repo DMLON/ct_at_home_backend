@@ -8,6 +8,7 @@ const router_cart = Router();
 const db_cart = new Container('./cart.json');
 const db_products = new Container('./products.json');
 
+// Helper function to get a product by id, used to validate a product id
 const getProduct = async (id)=>{
     try{
         let product: object = await db_products.getById(id);
@@ -19,6 +20,7 @@ const getProduct = async (id)=>{
     }
 }
 
+// Helper function to get a cart by id
 const getCart = async (id)=>{
     try{
         let cart: object = await db_cart.getById(id);
@@ -120,7 +122,7 @@ router_cart.delete('/:id', async (req,res)=>{
     console.log('DELETE /cart');
     try{
         await db_cart.deleteById(req.params.id);
-        res.send({status:"success"});
+        res.send({status:"ok"});
     }
     catch(error){
         console.log(error);

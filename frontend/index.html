@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Public Test</title>
+        <style>
+            h2{
+                align-self: center;
+                justify-self: center;
+            }
+            .container {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 40px;
+            }
+
+            .flex-col-center {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .label-input {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .grid{
+                
+                display: grid;
+                grid-template-columns: repeat(5, 1fr);
+                gap:20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="grid">
+
+                <h2>Post New</h2>
+                
+                <div class="flex-col-center" id="post-form">
+                    <label for="admin">Is admin?</label>
+                    <input type="checkbox" name="admin" id="admin"/>
+                    <div class="label-input">
+                        <label for="productIdPost">Title</label>
+                        <input type="text" name="title" id="productTitlePost" />
+                    </div>
+                        <div class="label-input">
+                        <label for="productPricePost">Price</label>
+                        <input type="text" name="price" id="productPricePost" min="0"/>
+                    </div>
+                    <div class="label-input">
+                        <label for="productThumbnailPost">Thumbnail</label>
+                        <input type="text" name="thumbnail" id="productThumbnailPost" />
+                    </div>
+                    <button id="post-btn">Post</button>
+                </div>
+            </div>           
+        </div>
+        <script>
+            // Add Event listener for Get specific product by ID
+            document.querySelector("#post-btn").addEventListener("click", async (event) => {
+                event.preventDefault();
+                const action =`/api/products`
+                const title = document.querySelector("#productTitlePost").value;
+                const price = document.querySelector("#productPricePost").value;
+                const thumbnail = document.querySelector("#productThumbnailPost").value;
+                const isAdmin = document.querySelector("#admin").checked;
+                
+                console.log(isAdmin);
+                const resp = await fetch(action,{
+                    method:'POST',
+                    headers: {
+                        "admin": isAdmin,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({title:title,price:price,thumbnail:thumbnail})
+                });
+
+                console.log(await resp.json());
+            });
+        </script>
+    </body>
+</html>

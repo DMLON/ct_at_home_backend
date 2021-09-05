@@ -47,5 +47,14 @@
         "photo": "Postman",
         "stock": 50,
         "id": 5
+    },
+    {
+        "name": "testPostmanPOST",
+        "price": "123",
+        "description": "description",
+        "code": "123444",
+        "photo": "Postman",
+        "stock": 20,
+        "id": 6
     }
 ]
