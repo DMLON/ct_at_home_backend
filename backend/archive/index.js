@@ -1,18 +1,6 @@
 const express = require('express');
 const { router_products } = require('./routers/productos');
 
-
-
-/**
- * Returns a number generated randomly between 0 and max - 1
- * @param {Number} max 
- * @returns Number between 0 and max - 1
- */
-function generateRandomInteger(max) { 
-    return Math.floor(Math.random() * max) % max;
-}
-
-
 const app = express();
 
 // Use Json

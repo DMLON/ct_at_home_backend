@@ -1,0 +1,51 @@
+[
+    {
+        "name": "test",
+        "price": "123",
+        "description": "description",
+        "code": "123444",
+        "photo": "Postman",
+        "timestramp": "2020",
+        "stock": 20,
+        "id": 1
+    },
+    {
+        "name": "test",
+        "price": "123",
+        "description": "description",
+        "code": "123444",
+        "photo": "Postman",
+        "timestramp": "2020",
+        "stock": 20,
+        "id": 2
+    },
+    {
+        "name": "test",
+        "price": "123",
+        "description": "description",
+        "code": "123444",
+        "photo": "Postman",
+        "timestramp": "2020",
+        "stock": 20,
+        "id": 3
+    },
+    {
+        "name": "test",
+        "price": "123",
+        "description": "description",
+        "code": "123444",
+        "photo": "Postman",
+        "timestramp": "2020",
+        "stock": 20,
+        "id": 4
+    },
+    {
+        "name": "testPostmanPOST",
+        "price": "123",
+        "description": "ddddd",
+        "code": "sdadasd",
+        "photo": "Postman",
+        "stock": 50,
+        "id": 5
+    }
+]

@@ -9,3 +9,7 @@ https://cthomeproductos.glitch.me/productos
 Run with nodemon.json config to ignore local updates to products.json database
 
 `nodemon --config nodemon.json`
+
+## Init
+
+Create the typescript init file with `npx tsc --init`
