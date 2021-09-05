@@ -49,16 +49,28 @@
                     <label for="admin">Is admin?</label>
                     <input type="checkbox" name="admin" id="admin"/>
                     <div class="label-input">
-                        <label for="productIdPost">Title</label>
-                        <input type="text" name="title" id="productTitlePost" />
+                        <label for="productNamePost">Name</label>
+                        <input type="text" name="name" id="productNamePost" />
                     </div>
                         <div class="label-input">
                         <label for="productPricePost">Price</label>
                         <input type="text" name="price" id="productPricePost" min="0"/>
                     </div>
                     <div class="label-input">
-                        <label for="productThumbnailPost">Thumbnail</label>
-                        <input type="text" name="thumbnail" id="productThumbnailPost" />
+                        <label for="productPhotoPost">Photo</label>
+                        <input type="text" name="photo" id="productPhotoPost" />
+                    </div>
+                    <div class="label-input">
+                        <label for="productDescriptionPost">Description</label>
+                        <input type="text" name="description" id="productDescriptionPost" />
+                    </div>
+                    <div class="label-input">
+                        <label for="productStockPost">Stock</label>
+                        <input type="text" name="stock" id="productStockPost" />
+                    </div>
+                    <div class="label-input">
+                        <label for="productCodePost">Code</label>
+                        <input type="text" name="code" id="productCodePost" />
                     </div>
                     <button id="post-btn">Post</button>
                 </div>
@@ -68,13 +80,21 @@
             // Add Event listener for Get specific product by ID
             document.querySelector("#post-btn").addEventListener("click", async (event) => {
                 event.preventDefault();
-                const action =`/api/products`
-                const title = document.querySelector("#productTitlePost").value;
-                const price = document.querySelector("#productPricePost").value;
-                const thumbnail = document.querySelector("#productThumbnailPost").value;
+                const action =`http://localhost:8080/api/products`
+                const name = document.querySelector("#productNamePost");
+                const price = document.querySelector("#productPricePost");
+                const photo = document.querySelector("#productPhotoPost");
+                const description = document.querySelector("#productDescriptionPost");
+                const stock = document.querySelector("#productStockPost");
+                const code = document.querySelector("#productCodePost");
                 const isAdmin = document.querySelector("#admin").checked;
-                
-                console.log(isAdmin);
+                const body = {  name:name.value,
+                                            price:price.value,
+                                            photo:photo.value,
+                                            description:description.value,
+                                            stock:stock.value,
+                                            code:code.value}
+                console.log(body);
                 const resp = await fetch(action,{
                     method:'POST',
                     headers: {
@@ -82,11 +102,21 @@
                         'Accept': 'application/json',
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({title:title,price:price,thumbnail:thumbnail})
+                    body: JSON.stringify(body)
                 });
+
+                name.value = "";
+                price.value = "";
+                photo.value = "";
+                description.value = "";
+                stock.value = "";
+                code.value = "";
 
                 console.log(await resp.json());
             });
+
+
+
         </script>
     </body>
 </html>

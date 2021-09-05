@@ -1,8 +1,11 @@
 import express  from "express";
 import router_cart from "./routes/cart";
 import router_products from "./routes/products";
+const cors = require('cors');
 
 const app = express();
+
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -16,5 +19,5 @@ app.get('*', function(req, res){
 
 const PORT = 8080;
 app.listen(PORT, () => {
-    console.log(`Server started on $${PORT }`);
+    console.log(`Server started on ${PORT }`);
 });
