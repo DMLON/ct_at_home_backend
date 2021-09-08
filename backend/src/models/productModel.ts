@@ -1,5 +1,18 @@
+import { IJSONParseable } from "./IJSONParseable";
 
-export default class Product{
+// Requiero una interface para hacer overloading de los constructores (Asi puedo tener uno por defecto)
+interface IProduct{
+    id: number;
+    timestramp: number;
+    name: string;
+    description: string;
+    code: string;
+    photo: string;
+    price: number;
+    stock: number;
+}
+
+export default class Product implements IJSONParseable<Product>{
     id: number;
     timestramp: number;
     name: string;
@@ -10,37 +23,27 @@ export default class Product{
     stock: number;
 
     
-
-    constructor(
-        id: number, 
-        name: string, 
-        description: string, 
-        code: string, 
-        photo: string, 
-        price: number, 
-        stock: number
-    ) {
-        this.id = id
-        this.timestramp = Date.now();
-        this.name = name
-        this.description = description
-        this.code = code
-        this.photo = photo
-        this.price = price
-        this.stock = stock
+    constructor(obj?: IProduct) {
+        this.id = obj && obj.id || -1
+        this.timestramp = obj && obj.timestramp || Date.now();
+        this.name = obj && obj.name || "";
+        this.description = obj && obj.description || "";
+        this.code = obj && obj.code || "";
+        this.photo = obj && obj.photo || "";
+        this.price = obj && obj.price || 0;
+        this.stock = obj && obj.stock || 0;
     }
 
-    static fromJSON(productJSON){
-        return new Product(
-            productJSON['id'],
-            productJSON['name'],
-            productJSON['description'],
-            productJSON['code'],
-            productJSON['photo'],
-            productJSON['price'],
-            productJSON['stock'],
-        )
+    deserialize(input) {
+        this.id = input.id
+        this.timestramp = input.timestramp || Date.now();
+        this.name = input.name
+        this.description = input.description
+        this.code = input.code
+        this.photo = input.photo
+        this.price = input.price
+        this.stock = input.stock
+        return this;
     }
-
     
 }

@@ -5,17 +5,19 @@ import Product from '../models/productModel';
 
 const router_cart = Router();
 
-const db_cart = new Container('./cart.json');
-const db_products = new Container('./products.json');
+const db_cart = new Container<Cart>(Cart, './cart.json');
+const db_products = new Container<Product>(Product,'./products.json');
 
 // Helper function to get a product by id, used to validate a product id
 const getProduct = async (id)=>{
     try{
-        let product: object = await db_products.getById(id);
-        return Product.fromJSON(product[0]);
+        let product = await db_products.getById(id);
+        if(product == null){
+            return {error:"Product does not exist"};
+        }
+        return product;
     }
     catch(error){
-        console.log(error);
         return {error:"Product does not exist"};
     }
 }
@@ -23,12 +25,14 @@ const getProduct = async (id)=>{
 // Helper function to get a cart by id
 const getCart = async (id)=>{
     try{
-        let cart: object = await db_cart.getById(id);
-        return Cart.fromJSON(cart[0]);
+        let cart = await db_cart.getById(id);
+        if(cart == null){
+            return {error:"Cart does not exist"};
+        }
+        return cart;
     }
     catch(error){
-        console.log(error);
-        return {error:error};
+        return {error:"Cart does not exist"};
     }
 }
 
@@ -47,19 +51,24 @@ router_cart.get('/:id/products', async (req,res)=>{
 // Push items into a selected cart
 router_cart.post('/:id/products', async (req,res)=>{
     console.log(`POST /cart/${req.params.id}/products`);
-    const {productId} = req.body;
+    const {productId,quantity} = req.body;
     const cart = await getCart(req.params.id);
     console.log(cart);
     if(cart instanceof Cart){
         let product = await getProduct(productId);
         if(product instanceof Product){
-            const success = cart.addToCart(productId);
-            if(success){
-                const id = await db_cart.save(cart);
-                res.send({status:"ok"});
+            if(quantity > product.stock){
+                res.send({status:"Requested quantity above item stock"});
             }
             else{
-                res.send({status:"Item already in cart"});
+                const success = cart.addToCart(product,quantity);
+                if(success){
+                    const id = await db_cart.save(cart);
+                    res.send({status:"ok"});
+                }
+                else{
+                    res.send({status:"Item already in cart"});
+                }
             }
         }
         else{

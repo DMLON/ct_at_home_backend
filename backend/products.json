@@ -1,78 +1,72 @@
 [
     {
+        "id": 1,
+        "timestramp": "2020",
         "name": "test",
-        "price": "123",
         "description": "description",
         "code": "123444",
         "photo": "Postman",
-        "timestramp": "2020",
-        "stock": 20,
-        "id": 1
+        "price": "123",
+        "stock": 20
     },
     {
+        "id": 2,
+        "timestramp": "2020",
         "name": "test",
-        "price": "123",
         "description": "description",
         "code": "123444",
         "photo": "Postman",
-        "timestramp": "2020",
-        "stock": 20,
-        "id": 2
+        "price": "123",
+        "stock": 20
     },
     {
+        "id": 3,
+        "timestramp": "2020",
         "name": "test",
-        "price": "123",
         "description": "description",
         "code": "123444",
         "photo": "Postman",
-        "timestramp": "2020",
-        "stock": 20,
-        "id": 3
+        "price": "123",
+        "stock": 20
     },
     {
+        "id": 4,
+        "timestramp": "2020",
         "name": "test",
-        "price": "123",
         "description": "description",
         "code": "123444",
         "photo": "Postman",
-        "timestramp": "2020",
-        "stock": 20,
-        "id": 4
+        "price": "123",
+        "stock": 20
     },
     {
+        "id": 5,
+        "timestramp": 1631077589154,
         "name": "testPostmanPOST",
-        "price": "123",
         "description": "ddddd",
         "code": "sdadasd",
         "photo": "Postman",
-        "stock": 50,
-        "id": 5
+        "price": "123",
+        "stock": 50
     },
     {
+        "id": 7,
+        "timestramp": 1631077620645,
         "name": "testPostmanPOST",
-        "price": "123",
         "description": "description",
         "code": "123444",
         "photo": "Postman",
-        "stock": 20,
-        "id": 6
-    },
-    {
-        "name": "123",
         "price": "123",
-        "photo": "123",
-        "description": "123",
-        "stock": "123",
-        "code": "123",
-        "id": 7
+        "stock": 20
     },
     {
-        "name": "456",
-        "price": "45",
-        "photo": "64",
-        "description": "456",
-        "stock": "456",
-        "code": "456",
-        "id": 8
+        "id": 8,
+        "timestramp": 1631077847163,
+        "name": "testPostmanPOST",
+        "description": "description",
+        "code": "123444",
+        "photo": "Postman",
+        "price": "123",
+        "stock": 20
     }
 ]

@@ -5,8 +5,7 @@ import validateUser from '../middlewares/userValidator';
 import Product from '../models/productModel';
 
 
-const db = new Container('./products.json');
-const local_db: Array<Product> = [];
+const db = new Container<Product>(Product,'./products.json');
 const router_products = Router();
 
 
@@ -26,7 +25,7 @@ router_products.get('/:id?', async (req,res)=>{
         // Sino devuelvo especifico
         try{
             const product = await db.getById(req.params.id);
-            if(product.length == 0)
+            if(product == null)
                 res.send({error: 'product not found'});
             else
                 res.send(product);
@@ -39,11 +38,11 @@ router_products.get('/:id?', async (req,res)=>{
 });
 
 router_products.post('/',validateProduct,validateUser, async (req,res)=>{
-    const {name,description,code,photo,price,stock} = req.body;
     let response = {};
     response = {id:-1};
     try{
-        const id = await db.save(req.body)//     // console.log('POST /products');
+        const product = new Product().deserialize(req.body);
+        const id = await db.save(product)//     // console.log('POST /products');
         response = {id:id}
     }
     catch(error: any){
@@ -68,10 +67,9 @@ router_products.put('/:id',validateProduct,validateUser,async (req,res)=>{
         const {id, name,description,code,photo,price,stock} = req.body;
         let product = await db.getById(req.params.id);
 
-        if(product.length == 0)
+        if(product == null)
             res.send({error: 'product not found'});
         else{
-            product = product[0];
             product.name = name;
             product.description = description;
             product.code = code;
