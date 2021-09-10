@@ -1,57 +1,91 @@
-import React, { useState } from 'react'
-
+import React, { useEffect, useState } from 'react'
+import BackendController from '../helpers/backendController';
 
 export const CartContext = React.createContext();
 
 export const CartProvider = ({defaultValue = [], children}) => {
     const [cart, setCart] = useState(defaultValue);
-
-    const addItem = (item,quantity) =>{
-        if(isInCart(item && item.id)){
-            // Incremento por la cantidad
-            const indexItem = cart.map(itemQuantity => itemQuantity.item.id).indexOf(item.id);
-            cart[indexItem].quantity = quantity;
-            setCart([...cart]);
-        }else{
-            // Agrego el item al cart
-            setCart([...cart,{item:item,quantity:quantity}]);
-        }
-        
-        
-    }
-
-    const isInCart = (itemId) =>{
-        return itemId === undefined ? undefined : getItem(itemId) !== undefined;
-    }
-
-    const removeItem = (itemId) =>{
-        if(!isInCart(itemId)){
-            console.log("Item not in cart");
-            return;
+    const controller = BackendController.CartController;
+    const [cartId,setCartId] = useState(null);
+    
+    const addItem = async (item,quantity) =>{
+        // Si el cart Id es 0 es porque no se genero un carrito
+        if(cartId === null){
+            try{
+                var id = await controller.createCart();
+                setCartId(id.id);
+            }
+            catch(err){
+                console.log("Unable to create cart");
+                return;
+            }
         }
 
-        // Filtro los que NO tengan el id
-        const newCart = cart.filter(itemQuantity => itemQuantity.item.id !== itemId)
-        setCart(newCart);
+        let _id = null;
+        if(id?.id != undefined)
+            _id = id.id;
+        else
+            _id = cartId;
+
+        try{
+            const itemId= item.id;
+            const response = await controller.addProductToCart(_id,itemId,quantity);
+        }
+        catch(error){
+            console.log(error);
+            return error;
+        }
+
+        try{
+            const products = await controller.getAllProducts(_id);
+            setCart([...products]);
+        }
+        catch(error){
+            console.error(error);
+            return error;
+        }        
+        
     }
 
-    const clear = (item,quantity) =>{
-        setCart([]);
+
+    const removeItem = async (itemId) =>{
+        
+        try{
+            const response = await controller.removeProductFromCart(cartId,itemId);
+            const products = await controller.getAllProducts(cartId);
+            setCart([...products]);
+        }
+        catch(error){
+            console.error(error);
+            return error;
+        }  
+    }
+
+    const clear = async () =>{
+        try{
+            const response = await controller.deleteCart(cartId);
+            setCartId(0);
+            setCart([]);
+        }
+        catch(error){
+            console.error(error);
+            return error;
+        }  
     }
 
     const getItem = (itemId) => {
-        return cart.find(itemQuantity=>itemQuantity.item.id === itemId);
+        return cart.find(itemQuantity=>itemQuantity.product.id === itemId);
     }
 
     const getTotalPrice = ()=>{
-        return cart.reduce((sum,itemQuantity)=>sum+itemQuantity.item.price * itemQuantity.quantity,0)
+        return cart.reduce((sum,itemQuantity)=>sum+itemQuantity.product.price * itemQuantity.quantity,0)
     }
 
     const getTotalItems = () =>{
         return cart.reduce((sum,itemQuantity)=>sum+itemQuantity.quantity,0)
     }
 
-    return <CartContext.Provider value={{cart,addItem,isInCart,removeItem,clear, getItem, getTotalPrice,getTotalItems}}>
+    return <CartContext.Provider value={{cart,addItem,removeItem,clear, getItem, getTotalPrice,getTotalItems}}>
         {children}
     </CartContext.Provider>
 }

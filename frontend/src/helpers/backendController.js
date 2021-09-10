@@ -11,7 +11,7 @@ export default class BackendController {
                 });
                 return response.status === 200 ? await response.json() : null;
             } catch (error) {
-                return error;
+                throw error;
             }
         };
 
@@ -25,7 +25,7 @@ export default class BackendController {
                 });
                 return response.status === 200 ? await response.json() : null;
             } catch (error) {
-                return error;
+                throw error;
             }
         };
 
@@ -36,11 +36,11 @@ export default class BackendController {
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: { name, description, code, photo, price, stock },
+                    body: JSON.stringify({ name, description, code, photo, price, stock }),
                 });
                 return response.status === 200 ? await response.json() : null;
             } catch (error) {
-                return error;
+                throw error;
             }
         };
 
@@ -51,11 +51,11 @@ export default class BackendController {
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: { id, name, description, code, photo, price, stock },
+                    body: JSON.stringify({ id, name, description, code, photo, price, stock }),
                 });
                 return response.status === 200 ? await response.json() : null;
             } catch (error) {
-                return error;
+                throw error;
             }
         };
 
@@ -69,7 +69,7 @@ export default class BackendController {
                 });
                 return response.status === 200 ? await response.json() : null;
             } catch (error) {
-                return error;
+                throw error;
             }
         };
     };
@@ -86,7 +86,7 @@ export default class BackendController {
                 });
                 return response.status === 200 ? await response.json() : null;
             } catch (error) {
-                return error;
+                throw error;
             }
         };
 
@@ -100,22 +100,23 @@ export default class BackendController {
                 });
                 return response.status === 200 ? await response.json() : null;
             } catch (error) {
-                return error;
+                throw error;
             }
         };
 
         static addProductToCart = async (cartId, productId, quantity) => {
+            const body = {productId, quantity}
             try {
                 const response = await fetch(`${this.endpoint}/${cartId}/products`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body:{productId, quantity}
+                    body:JSON.stringify(body)
                 });
                 return response.status === 200 ? await response.json() : null;
             } catch (error) {
-                return error;
+                throw error;
             }
         };
 
@@ -129,7 +130,7 @@ export default class BackendController {
                 });
                 return response.status === 200 ? await response.json() : null;
             } catch (error) {
-                return error;
+                throw error;
             }
         };
 
@@ -143,7 +144,7 @@ export default class BackendController {
                 });
                 return response.status === 200 ? await response.json() : null;
             } catch (error) {
-                return error;
+                throw error;
             }
         };
     };

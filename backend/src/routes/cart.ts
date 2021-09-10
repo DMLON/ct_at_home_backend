@@ -53,6 +53,7 @@ router_cart.get('/:id/products', async (req,res)=>{
 // Push items into a selected cart
 router_cart.post('/:id/products', async (req,res)=>{
     console.log(`POST /cart/${req.params.id}/products`);
+    console.log(req.body);
     const {productId,quantity} = req.body;
     const cartOrError = await getCart(req.params.id);
     if(cartOrError instanceof Cart){

@@ -29,7 +29,16 @@ export default class Cart implements IJSONParseable<Cart>{
             return true;
         }
         else
-            return false;
+        {
+            if (this.products[idx].quantity != quantity){
+                this.products[idx].quantity = quantity
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        return false;
     }
 
     removeProduct(id: number): boolean{

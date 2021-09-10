@@ -9,7 +9,6 @@ const CartContent = ({enableEdit}) => {
     function removeItem(itemId){
         cartContext.removeItem(itemId);
     }
-
     return (
         <>
         <table className="table">
@@ -27,14 +26,14 @@ const CartContent = ({enableEdit}) => {
                 <tbody>
                     {cartContext.cart.map(itemQuantity =>(
                     <tr>
-                        <td><img style={{width: "100px", height:"100px"}} src={itemQuantity.item.photo}></img></td>
-                        <td>{itemQuantity.item.name}</td>
-                        <td>${itemQuantity.item.price}</td>
+                        <td><img style={{width: "100px", height:"100px"}} src={itemQuantity.product.photo}></img></td>
+                        <td>{itemQuantity.product.name}</td>
+                        <td>${itemQuantity.product.price}</td>
                         <td>{itemQuantity.quantity}</td>
-                        <td>${itemQuantity.quantity * itemQuantity.item.price}</td>
+                        <td>${itemQuantity.quantity * itemQuantity.product.price}</td>
                         {enableEdit?<td>
-                            <button className="btn btn-danger mx-1" onClick={()=>removeItem(itemQuantity.item.id)}>X</button>
-                            <Link className="btn btn-success mx-1" to={"/item/"+itemQuantity.item.id}>Editar</Link>
+                            <button className="btn btn-danger mx-1" onClick={()=>removeItem(itemQuantity.product.id)}>X</button>
+                            <Link className="btn btn-success mx-1" to={"/item/"+itemQuantity.product.id}>Editar</Link>
                         </td>: <></>}
                         
                     </tr>
