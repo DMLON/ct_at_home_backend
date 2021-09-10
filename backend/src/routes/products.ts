@@ -15,10 +15,10 @@ router_products.get('/:id?', async (req,res)=>{
     if(!req.params.id){
         try{
             const products = await db.getAll();
-            res.send(products);
+            res.status(200).send(products);
         }
         catch(error){
-            res.send({error:error});
+            res.status(400).send({error:error});
         }
     }
     else{
@@ -26,12 +26,12 @@ router_products.get('/:id?', async (req,res)=>{
         try{
             const product = await db.getById(req.params.id);
             if(product == null)
-                res.send({error: 'product not found'});
+                res.status(409).send({error: 'product not found'});
             else
-                res.send(product);
+                res.status(200).send(product);
         }
         catch(error){
-            res.send({error:error});
+            res.status(400).send({error:error});
         }
     }
     
@@ -52,10 +52,11 @@ router_products.post('/',validateProduct,validateUser, async (req,res)=>{
     }
     console.log("POST /products");
     try{
-        return res.send(response);
+        return res.status(200).send(response);
     }
     catch(error){
         console.error(error);
+        return res.status(200).send(error);
     }
     
 });
@@ -68,7 +69,7 @@ router_products.put('/:id',validateProduct,validateUser,async (req,res)=>{
         let product = await db.getById(req.params.id);
 
         if(product == null)
-            res.send({error: 'product not found'});
+            res.status(409).send({error: 'product not found'});
         else{
             product.name = name;
             product.description = description;
@@ -77,12 +78,12 @@ router_products.put('/:id',validateProduct,validateUser,async (req,res)=>{
             product.price = price;
             product.stock = stock;
             const id = await db.save(product);
-            res.send(product);
+            res.status(200).send(product);
         }
     }
     catch(error){
         console.log(error);
-        res.send({error:error});
+        res.status(400).send({error:error});
     }
 });
 
@@ -90,11 +91,11 @@ router_products.delete('/:id',validateUser, async (req,res)=>{
     console.log('DELETE /products');
     try{
         await db.deleteById(req.params.id);
-        res.send({status:"ok"});
+        res.status(200).send({status:"ok"});
     }
     catch(error){
         console.log(error);
-        res.send({error:error});
+        res.status(400).send({error:error});
     }
 })
 

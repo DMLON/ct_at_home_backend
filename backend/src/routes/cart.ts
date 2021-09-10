@@ -39,12 +39,14 @@ const getCart = async (id)=>{
 // Return all objects from a selected cart
 router_cart.get('/:id/products', async (req,res)=>{
     console.log(`GET /cart/${req.params.id}/products`);
-    const cart = await getCart(req.params.id);
-    if(cart instanceof Cart){
-        res.send(JSON.stringify(cart.products));
+    const cartOrError = await getCart(req.params.id);
+    if(cartOrError instanceof Cart){
+        const cart = cartOrError
+        res.status(200).send(JSON.stringify(cart.products));
     }
     else{
-        res.send(cart);
+        const error = cartOrError;
+        res.status(400).send(error);
     }
 });
 
@@ -52,22 +54,22 @@ router_cart.get('/:id/products', async (req,res)=>{
 router_cart.post('/:id/products', async (req,res)=>{
     console.log(`POST /cart/${req.params.id}/products`);
     const {productId,quantity} = req.body;
-    const cart = await getCart(req.params.id);
-    console.log(cart);
-    if(cart instanceof Cart){
+    const cartOrError = await getCart(req.params.id);
+    if(cartOrError instanceof Cart){
+        const cart = cartOrError;
         let product = await getProduct(productId);
         if(product instanceof Product){
             if(quantity > product.stock){
-                res.send({status:"Requested quantity above item stock"});
+                res.status(409).send({status:"Requested quantity above item stock"});
             }
             else{
                 const success = cart.addToCart(product,quantity);
                 if(success){
                     const id = await db_cart.save(cart);
-                    res.send({status:"ok"});
+                    res.status(200).send({status:"ok"});
                 }
                 else{
-                    res.send({status:"Item already in cart"});
+                    res.status(409).send({status:"Item already in cart"});
                 }
             }
         }
@@ -76,27 +78,30 @@ router_cart.post('/:id/products', async (req,res)=>{
         }
     }
     else{
-        res.send(cart);
+        const error = cartOrError
+        res.status(400).send(error);
     }
 });
 
 // Delete a selected product from a selected cart
 router_cart.delete('/:id/products/:id_prod', async (req,res)=>{
     console.log(`DELETE /cart/${req.params.id}/products/${req.params.id_prod}`);
-    const cart = await getCart(req.params.id);
+    const cartOrError = await getCart(req.params.id);
 
-    if(cart instanceof Cart){
+    if(cartOrError instanceof Cart){
+        const cart = cartOrError;
         const success = cart.removeProduct(+req.params.id_prod);
         if(success){
             const id = await db_cart.save(cart);
-            res.send({status:"ok"});
+            res.status(200).send({status:"ok"});
         }
         else{
-            res.send({error:"invalid product id"});
+            res.status(400).send({error:"invalid product id"});
         }
     }
     else{
-        res.send(cart);
+        const error = cartOrError;
+        res.status(400).send(error);
     }
 
 });
@@ -118,10 +123,11 @@ router_cart.post('/', async (req,res)=>{
     }
     console.log("POST /cart");
     try{
-        return res.send(response);
+        return res.status(200).send(response);
     }
     catch(error){
         console.error(error);
+        return res.status(400).send(error);
     }
     
 });
@@ -131,11 +137,11 @@ router_cart.delete('/:id', async (req,res)=>{
     console.log('DELETE /cart');
     try{
         await db_cart.deleteById(req.params.id);
-        res.send({status:"ok"});
+        res.status(200).send({status:"ok"});
     }
     catch(error){
         console.log(error);
-        res.send({error:error});
+        res.status(400).send({error:error});
     }
 })
 
