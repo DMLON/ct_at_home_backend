@@ -13,5 +13,16 @@
             "restart": true,
             "protocol": "inspector"
         }
+        ,
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug launcher",
+            "protocol": "inspector",
+            "program": "${file}",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "outFiles": ["${workspaceFolder}/dist/**/*.js"],
+            "sourceMaps": true
+        }
     ]
 }

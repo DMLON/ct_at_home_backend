@@ -1,7 +1,8 @@
 // const fs = require('fs');
 import fs from 'fs';
-import { IJSONParseable } from "../../database/models/IJSONParseable";
-class Container<T extends IJSONParseable<T>>{
+import { IJSONParseable } from "../models/FileSystem/IJSONParseable";
+import IDBConnector from './interface/iDBConnector';
+class ContainerFileSystem<T extends IJSONParseable<T>> implements IDBConnector{
     filename: string;
     indentation:number;
     type;
@@ -23,7 +24,11 @@ class Container<T extends IJSONParseable<T>>{
         return lastId;
     }
 
-    async save(object: T){
+    async updateObject(object: T){
+        this.createObject(object);
+    }
+
+    async createObject(object: T){
         try{
             const content = await this.getAll();
             const lastId = await this._getLastId(content);
@@ -57,7 +62,7 @@ class Container<T extends IJSONParseable<T>>{
         }
     }
 
-    async getById(id){
+    async findById(id){
         try{
             const content = await this.getAll();
             const obj = content.filter(el => el["id"] == id);
@@ -124,4 +129,4 @@ class Container<T extends IJSONParseable<T>>{
 }
 
 
-export default Container;
+export default ContainerFileSystem;

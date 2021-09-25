@@ -2,7 +2,7 @@ import express,{Router} from 'express';
 import Container from "../helpers/container";
 import validateProduct from '../middlewares/productValidator';
 import validateUser from '../middlewares/userValidator';
-import Product from '../models/productModel';
+import Product from '../../database/models/productModel';
 
 
 const db = new Container<Product>(Product,'./products.json');
