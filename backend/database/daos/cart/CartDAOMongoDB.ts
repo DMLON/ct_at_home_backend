@@ -1,10 +1,14 @@
 
 import ContainerMongoDB from "../../containers/ContainerMongoDB";
 import {cart} from "../../models/mongoose/cart";
-import {connectionString} from "../../configs/mongodb";
+import {connectionString,connectionStringTest} from "../../configs/mongodb";
 class CartDAOMongoDb extends ContainerMongoDB {
-    constructor(){
-        super(connectionString,cart);
+    constructor(test = false){
+        if(test)
+            super(connectionStringTest,cart);
+        else
+            super(connectionString,cart);
+        
     }
 }
 

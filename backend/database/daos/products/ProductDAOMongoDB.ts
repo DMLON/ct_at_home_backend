@@ -1,9 +1,15 @@
 
 import ContainerMongoDB from "../../containers/ContainerMongoDB";
 import {product} from "../../models/mongoose/product"
+import {connectionString,connectionStringTest} from "../../configs/mongodb";
+
 class ProductDAOMongoDb extends ContainerMongoDB {
-    constructor(){
-        super("mongodb+srv://dbUser:<password>@cluster0.tkmat.mongodb.net/ecommerce?retryWrites=true&w=majority",product);
+    constructor(test = false){
+        if(test)
+            super(connectionStringTest,product);
+        else
+            super(connectionString,product);
+        
     }
 }
 

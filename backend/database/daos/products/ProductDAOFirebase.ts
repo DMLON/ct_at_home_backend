@@ -1,8 +1,11 @@
 import ContainerFirebase from "../../containers/ContainerFirebase";
 
 class ProductDAOFirebase extends ContainerFirebase{
-    constructor(){
-        super("products");
+    constructor(test = false){
+        if(test)
+            super("products_test");
+        else 
+            super("products");
     }
 }
 
