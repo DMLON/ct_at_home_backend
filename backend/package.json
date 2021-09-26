@@ -7,13 +7,15 @@
     "build": "webpack -w",
     "start": "nodemon .",
     "dev": "node dist/main.js",
-    "debug": "nodemon --inspect dist/main.js --config nodemon.json"
+    "debug": "nodemon --inspect dist/main.js --config nodemon.json",
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@types/express": "^4.17.13",
     "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "firebase-admin": "^9.5.0",
     "joi": "^17.4.2",
@@ -23,6 +25,7 @@
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {
+    "jest": "^27.2.2",
     "nodemon": "^2.0.12",
     "ts-loader": "^8.3.0",
     "ts-node": "^10.2.1",

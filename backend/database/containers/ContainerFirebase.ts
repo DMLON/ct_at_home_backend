@@ -1,5 +1,5 @@
 import admin, { firestore } from 'firebase-admin';
-import credentials from './firebaseCredentials.js'
+import credentials from '../configs/firebaseCredentials.js'
 import IDBConnector from './interface/iDBConnector';
 class ContainerFirebase implements IDBConnector{
     db: firestore.Firestore;

@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 const generateProducts = async ()=>{
-    const {options} = require('./options/mariaDB');
+    const {options} = require('./configs/mariaDB');
     let destroyed = false;
 
     const knex_products = require('knex')(options);
@@ -63,7 +63,7 @@ const generateProducts = async ()=>{
 }
 
 const generateMessages = async () =>{
-    const {options} = require('./options/SQLite3');
+    const {options} = require('./configs/SQLite3');
     const knex_messages= require('knex')(options);
     //--------- SQLite3 ----------
     let destroyed = false;

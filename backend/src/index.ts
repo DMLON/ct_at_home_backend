@@ -1,6 +1,10 @@
 import express  from "express";
 import router_cart from "./routes/cart";
 import router_products from "./routes/products";
+
+import dotenv from "dotenv"
+dotenv.config();
+
 const cors = require('cors');
 
 const app = express();

@@ -1,5 +1,5 @@
 import ContainerKnexDB from "../../containers/ContainerKnexDB";
-import {options} from "../../options/mariaDB"
+import {options} from "../../configs/mariaDB"
 
 class ProductDAOMariaDB extends ContainerKnexDB {
     constructor(){

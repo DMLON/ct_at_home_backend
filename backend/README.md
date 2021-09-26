@@ -13,3 +13,10 @@ Run with nodemon.json config to ignore local updates to products.json database
 ## Init
 
 Create the typescript init file with `npx tsc --init`
+
+Set the database type .env file.
+ - mongo
+ - mariadb
+ - sqlite
+ - memory
+ - firebase

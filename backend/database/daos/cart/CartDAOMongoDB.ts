@@ -1,10 +1,12 @@
 
 import ContainerMongoDB from "../../containers/ContainerMongoDB";
-import {cart} from "../../models/mongoose/cart"
+import {cart} from "../../models/mongoose/cart";
+import {connectionString} from "../../configs/mongodb";
 class CartDAOMongoDb extends ContainerMongoDB {
     constructor(){
-        super("mongodb+srv://dbUser:<password>@cluster0.tkmat.mongodb.net/ecommerce?retryWrites=true&w=majority",cart);
+        super(connectionString,cart);
     }
 }
 
+console.log(process.env.PORT);
 export default CartDAOMongoDb

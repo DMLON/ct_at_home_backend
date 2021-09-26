@@ -38,7 +38,6 @@ export default class Cart implements IJSONParseable<Cart>{
                 return false;
             }
         }
-        return false;
     }
 
     removeProduct(id: number): boolean{

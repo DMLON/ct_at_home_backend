@@ -1,7 +1,7 @@
 import express,{Router} from 'express';
 import Container from '../helpers/container';
 import Cart from "../../database/models/FileSystem/cartModel"
-import Product from '../../database/models/productModel';
+import Product from '../../database/models/FileSystem/productModel';
 
 const router_cart = Router();
 

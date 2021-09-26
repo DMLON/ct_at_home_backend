@@ -1,6 +1,6 @@
 // const fs = require('fs');
 import fs from 'fs';
-import { IJSONParseable } from "../../database/models/IJSONParseable";
+import { IJSONParseable } from "../../database/models/FileSystem/IJSONParseable";
 class Container<T extends IJSONParseable<T>>{
     filename: string;
     indentation:number;
