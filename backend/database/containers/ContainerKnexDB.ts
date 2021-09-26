@@ -8,8 +8,18 @@ class ContainerKnexDB implements IDBConnector{
         this.table = table;
     }
 
-    async updateObject(object){
-        return await this.createObject(object);
+    async updateObject(id: number | string,object){
+        try{
+            const id_internal = await this.knex
+                .from(this.table)
+                .update(object)
+                .where({id})
+            return id_internal[0];
+        }
+        catch(err){
+            console.log(err);
+            throw err;
+        }
     }
 
     async createObject(object){

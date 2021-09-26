@@ -1,10 +1,3 @@
-
-import ContainerFirebase from "../database/containers/ContainerFirebase";
-
-const a = new ContainerFirebase();
-
-
-
 import express  from "express";
 import router_cart from "./routes/cart";
 import router_products from "./routes/products";
