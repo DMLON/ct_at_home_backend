@@ -11,6 +11,7 @@ class ContainerMemory implements IDBConnector{
         const newObject = {id: this.lastId, ...object};
         this.lastId += 1;
         this.objectsArray.push(newObject);
+        return this.lastId - 1;
     }
 
     updateObject(id: number | string , object: any) {
@@ -32,7 +33,7 @@ class ContainerMemory implements IDBConnector{
             return null;
         }
         else{
-            return res;
+            return res[0];
         }
     }
     getAll() {

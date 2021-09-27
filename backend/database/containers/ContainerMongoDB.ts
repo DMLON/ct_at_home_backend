@@ -22,12 +22,14 @@ class ContainerMongoDB implements IDBConnector{
             throw new Error(`Error connecting to mongo DB ${err}`);
         }
     }
+    
     async createObject(object: any) {
         try{
             if(! this.dbConnected )
                 await this.connect();
             const objectSave = new this.model(object);
-            await objectSave.save();
+            const res = await objectSave.save();
+            console.log(res);
         }
         catch(err){
             throw new Error(`Error while creating object ${err}`);
@@ -37,13 +39,13 @@ class ContainerMongoDB implements IDBConnector{
         try{
             if(! this.dbConnected )
                 await this.connect();
-            return await this.model.update({id:id},{$set: {...object}});
+            return await this.model.updateOne({id:id},{$set: {...object}});
         }
         catch(err){
             throw new Error(`Error while updating object ${err}`);
         }
     }
-    async findById(id: number) {
+    async findById(id: any) {
         try{
             if(! this.dbConnected )
                 await this.connect();
@@ -63,7 +65,7 @@ class ContainerMongoDB implements IDBConnector{
             throw new Error(`Error while getting all objects ${err}`);
         }
     }
-    async deleteById(id: number) {
+    async deleteById(id: any) {
         try{
             if(! this.dbConnected )
                 await this.connect();

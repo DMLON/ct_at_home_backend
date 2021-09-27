@@ -10,6 +10,10 @@
     "debug": "nodemon --inspect dist/main.js --config nodemon.json",
     "test": "jest"
   },
+  "jest": {
+    "watchPathIgnorePatterns": ["json","sqlite"],
+    "testTimeout":50000
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {

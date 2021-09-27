@@ -4,9 +4,9 @@ import {options} from "../../configs/mariaDB"
 class CartDAOMariaDB extends ContainerKnexDB {
     constructor(test = false){
         if(test)
-            super('cart_test',options);
+            super('carts_test',options);
         else
-            super('cart',options);
+            super('carts',options);
     }
 }
 

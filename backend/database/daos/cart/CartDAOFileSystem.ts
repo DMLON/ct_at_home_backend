@@ -8,9 +8,9 @@ class CartDAOFileSystem extends ContainerFileSystem<Cart>{
     constructor(test = false){
         let path_to_file = "";
         if(test)
-            path_to_file = path.join(path.resolve(__dirname, '../..'),"databases","fs","test","cart.json");
+            path_to_file = path.join(path.resolve(__dirname, '../..'),"databases","fs","test","carts.json");
         else
-            path_to_file = path.join(path.resolve(__dirname, '../..'),"databases","fs","cart.json");
+            path_to_file = path.join(path.resolve(__dirname, '../..'),"databases","fs","carts.json");
         super(Cart,path_to_file);
     }
 }

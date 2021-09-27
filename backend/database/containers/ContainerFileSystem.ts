@@ -26,7 +26,7 @@ class ContainerFileSystem<T extends IJSONParseable<T>> implements IDBConnector{
 
     // En caso que el objeto no tenga id, se lo creo, sino lo pisa el deconstruct
     async updateObject(id: number, object: T){
-        this.createObject({id: id, ...object});
+        await this.createObject({id: id, ...object});
     }
 
     async createObject(object: T){
