@@ -2,7 +2,7 @@
 
 This repository has the backend part of a future e-commerce website that sells 3D printed products from Computerized tomography segmentations
 
-This backend can be seen working on this glitch site
+This backend can be seen working on this glitch site // Not working currently on latest push
 
 https://cthomeproductos.glitch.me/productos
 
@@ -14,9 +14,20 @@ Run with nodemon.json config to ignore local updates to products.json database
 
 Create the typescript init file with `npx tsc --init`
 
-Set the database type .env file.
- - mongo
- - mariadb
- - sqlite
- - memory
- - firebase
+Set on the .env file the following settings 
+
+PORT=xxxx
+
+HOST=<url>:<port>  // HOST of the database (For mongo only)
+ 
+USER=<mongodbuser>
+ 
+PASSWORD=<mongodbPassword>
+ 
+DATABASE=<databseName>
+ 
+
+ 
+Change between firebase and mongodb in the services/index.ts file uncommenting the line that is needed.
+
+Use correct credentials for firebase as the Default file
