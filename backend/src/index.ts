@@ -1,6 +1,6 @@
 import express  from "express";
-import router_cart from "./routes/cart";
-import router_products from "./routes/products";
+import router_cart from "./routers/cart.router";
+import router_products from "./routers/products.router";
 
 import dotenv from "dotenv"
 dotenv.config();
@@ -21,7 +21,7 @@ app.get('*', function(req, res){
     res.send({ error : -2, descripcion: `${req.originalUrl} Not found`});
 });
 
-const PORT = 8080;
+const PORT = process.env.PORT ? process.env.PORT : 8080;
 app.listen(PORT, () => {
     console.log(`Server started on ${PORT }`);
 });
