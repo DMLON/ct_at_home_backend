@@ -30,4 +30,10 @@ DATABASE=databseName
  
 Change between firebase and mongodb in the services/index.ts file uncommenting the line that is needed.
 
-Use correct credentials for firebase as the Default file
+### Firebase
+
+Use correct credentials for firebase changing the firebaseCredentials.js file in databse/configs/firebaseCredentials.js
+
+### MongoDB
+
+For mongo run mongorestore on backend folder
