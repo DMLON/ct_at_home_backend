@@ -18,13 +18,13 @@ Set on the .env file the following settings
 
 PORT=xxxx
 
-HOST=<url>:<port>  // HOST of the database (For mongo only)
+HOST= url:port  // HOST of the database (For mongo only)
  
-USER=<mongodbuser>
+USER=mongodbuser
  
-PASSWORD=<mongodbPassword>
+PASSWORD=mongodbPassword
  
-DATABASE=<databseName>
+DATABASE=databseName
  
 
  
