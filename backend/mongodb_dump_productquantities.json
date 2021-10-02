@@ -1,0 +1,64 @@
+[{
+  "_id": {
+    "$oid": "6157f3875f53067561a8488b"
+  },
+  "product": {
+    "timestamp": {
+      "$date": "2021-10-02T05:38:21.146Z"
+    },
+    "name": "productName",
+    "description": "Nuevo",
+    "code": "productCode",
+    "photo": "productPhoto",
+    "price": 1000,
+    "stock": 10,
+    "_id": {
+      "$oid": "6157f04d534dc7caed755472"
+    },
+    "__v": 0
+  },
+  "quantity": 1,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6157f38c5f53067561a84895"
+  },
+  "product": {
+    "timestamp": {
+      "$date": "2021-10-02T05:51:41.460Z"
+    },
+    "name": "productName2",
+    "description": "productDescription2",
+    "code": "productCode2",
+    "photo": "productPhoto2",
+    "price": 1000,
+    "stock": 10,
+    "_id": {
+      "$oid": "6157f36d5f53067561a84883"
+    },
+    "__v": 0
+  },
+  "quantity": 10,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6157f3af5f53067561a848a8"
+  },
+  "product": {
+    "timestamp": {
+      "$date": "2021-10-02T05:51:41.460Z"
+    },
+    "name": "productName2",
+    "description": "productDescription2",
+    "code": "productCode2",
+    "photo": "productPhoto2",
+    "price": 1000,
+    "stock": 10,
+    "_id": {
+      "$oid": "6157f36d5f53067561a84883"
+    },
+    "__v": 0
+  },
+  "quantity": 10,
+  "__v": 0
+}]
