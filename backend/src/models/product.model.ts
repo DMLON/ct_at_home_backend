@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const ProductCollection = "products";
 
 export interface Product{
-    timestramp: Date
+    timestamp: Date
     name: String,
     description:  String, 
     code: String, 
@@ -13,7 +13,7 @@ export interface Product{
 }
 
 export const ProductSchema = new mongoose.Schema({
-    timestramp: {type: Date},
+    timestamp: {type: Date},
     name: {type: String, required: true, unique:true},
     description: {type: String, required: true},
     code: {type: String, required: true,unique:true},

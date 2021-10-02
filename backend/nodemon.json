@@ -1,3 +1,4 @@
 {
-    "ignore": ["README","products.json","cart.json"]
+    "ignore": ["README","products.json","cart.json"],
+    "ext": "js,ts,json"
 }

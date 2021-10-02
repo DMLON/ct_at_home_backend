@@ -2,7 +2,11 @@ import { productModel } from "../models/product.model";
 
 export async function createProduct(data) {
 	try {
-		const response = await productModel.create(data)
+		const exist = await productModel.findOne({ code: data.code })
+		if (exist) {
+			throw new Error(`Product ${data.code} already exists`)
+		}
+		const response = await productModel.create({timestamp:new Date(), ...data})
 		return response
 	} catch (error:any) {
 		throw new Error(error)
@@ -32,6 +36,10 @@ export async function getAllProducts() {
 
 export async function deleteProduct(code){
     try {
+		const exist = await productModel.findOne({ code: code })
+		if (!exist) {
+			throw new Error(`Product ${code} does not exist`)
+		}
 		const res = await productModel.deleteOne({code});
 		return res;
 	} catch (error:any) {
@@ -41,6 +49,10 @@ export async function deleteProduct(code){
 
 export async function updateProduct(code,data){
     try {
+		const exist = await productModel.findOne({ code: data.code })
+		if (!exist) {
+			throw new Error(`Product ${data.code} does not exist`)
+		}
 		const product = await productModel.updateOne({code},{$set:{...data}});
 		return product;
 	} catch (error:any) {

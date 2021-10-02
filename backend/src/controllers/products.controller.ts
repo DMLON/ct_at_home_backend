@@ -1,4 +1,4 @@
-import {productService} from '../services/index.js'
+import {productService} from '../services/index'
 
 export async function getProducts(req,res){
     if(!req.params.id){
@@ -23,6 +23,7 @@ export async function getProducts(req,res){
 }
 
 export async function createProduct(req,res){
+    console.log("POST Create product");
     try{
         const product = await productService.createProduct(req.body);
         res.status(200).send({id:product.id});

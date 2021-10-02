@@ -1,6 +1,6 @@
 import { cartModel } from "../models/cart.model"
 import { productModel } from "../models/product.model"
-import { productQuantityModel } from "../models/ProductQuantity.model"
+import { ProductQuantity, productQuantityModel } from "../models/ProductQuantity.model"
 
 export async function createCart() {
 	try {
@@ -36,9 +36,22 @@ export async function addProductToCart(cartId,productCode,quantity) {
 		if(product.stock < quantity){
 			throw new Error('Product quanitty is superior to stock');
 		}
+		if(quantity <= 0){
+			throw new Error('Quantity must be higher than 0 and lower than stock');
+		}
+		const idx = cart.products.findIndex(prd=>prd.product.code == productCode);
 
-		const productQuantity = await productQuantityModel.create({product:product,quantity:quantity});
-		cart.products = [...cart.products, productQuantity];
+		if(idx != -1){
+			cart.products[idx].quantity = quantity
+
+		}
+		else{
+			//Deberia eliminar el product quanity, sin esto igual no podria darle el atributo a la relación correctamente en el modelo de esquemas de moongoose
+			const productQuantity = await productQuantityModel.create({product:product,quantity:quantity});
+			cart.products = [...cart.products, productQuantity];
+		}
+		
+		
 		const success = await cart.save();
 		if (!success) {
 			throw new Error('Could not add product to cart');
@@ -57,7 +70,10 @@ export async function deleteProductFromCart(cartId,productCode){
 		}
 		const products = cart.products.filter(prd=>prd.product.code != productCode);
 		cart.products = products;
-		await cart.save();
+		const success = await cart.save();
+		if (!success) {
+			throw new Error('Could not save cart');
+		}
 	} catch (error:any) {
 		throw new Error(error)
 	}

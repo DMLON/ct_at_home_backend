@@ -1,9 +1,10 @@
 import express  from "express";
 import router_cart from "./routers/cart.router";
 import router_products from "./routers/products.router";
-
+import "../database/mongo"
 import dotenv from "dotenv"
 dotenv.config();
+
 
 const cors = require('cors');
 
