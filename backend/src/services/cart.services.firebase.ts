@@ -6,11 +6,9 @@ export async function createCart() {
 		const collection = getFirestore().collection("carts");
 		const doc = collection.doc();
 		await doc.create({timestamp: new Date(), products: []});
-		return doc.id;
+		return doc;
 	}
-	catch(error){console.log("Error creating element " + error)}
-	return null;
-	
+	catch(error){throw new Error("Error creating element " + error)}
 }
 
 export async function getAllProducts(cartId) {
@@ -21,8 +19,7 @@ export async function getAllProducts(cartId) {
 		const response = {id:cartId,...item.data()};
 		return response;
 	}
-	catch(error){console.log("Error getting element " + error)}
-	return null;
+	catch(error){throw new Error("Error getting element " + error)}
 }
 
 export async function addProductToCart(cartId,productCode,quantity) {
@@ -98,6 +95,5 @@ export async function deleteCart(cartId){
 		const item = await doc.delete();
 		return true;
 	}
-	catch(error){console.log("Error deleting cart" + error)}
-	return false;
+	catch(error){throw new Error("Error deleting cart" + error)}
 }
