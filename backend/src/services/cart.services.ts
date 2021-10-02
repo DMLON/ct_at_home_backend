@@ -1,6 +1,6 @@
 import { cartModel } from "../models/cart.model"
 import { productModel } from "../models/product.model"
-import { ProductQuantity, productQuantityModel } from "../models/ProductQuantity.model"
+import { productQuantityModel } from "../models/ProductQuantity.model"
 
 export async function createCart() {
 	try {
