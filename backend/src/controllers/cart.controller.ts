@@ -23,9 +23,9 @@ export async function createCart(req,res){
 
 export async function addProductToCart(req,res){
     const cartId = req.params.id;
-    const {productCode,quantity} = req.body;
+    const {productId,quantity} = req.body;
     try{
-        const result = await cartService.addProductToCart(cartId,productCode,quantity);
+        const result = await cartService.addProductToCart(cartId,productId,quantity);
         res.status(200).send(result);
     }
     catch(error: any){
