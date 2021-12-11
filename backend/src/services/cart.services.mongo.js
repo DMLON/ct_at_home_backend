@@ -24,6 +24,18 @@ export async function getAllProducts(cartId) {
 	}
 }
 
+export async function getCartPopulated(cartId) {
+	try {
+		const cart = await cartModel.findById(cartId).populate('products.product');
+		if (!cart) {
+			throw new Error('Cart not found');
+		}
+		return cart;
+	} catch (error) {
+		throw new Error(error)
+	}
+}
+
 export async function addProductToCart(cartId,productId,quantity) {
 	try {
 		const cart = await cartModel.findById(cartId).populate('products.product');

@@ -1,4 +1,10 @@
 import {cartService} from '../services/index.js'
+import { sendEmail } from '../utils/emailSender.js';
+import { loggerDefault, loggerErrors } from '../utils/loggers.js';
+import { prettyfyCart } from "../utils/prettyfyObjects.js";
+import { sendMessage, sendMessageAdmin } from "../utils/whatsappSender.js";
+
+
 
 export async function getProductsFromCart(req,res){
     const cartId = req.params.id;
@@ -60,11 +66,41 @@ export async function buyCart(req,res){
     const cartId = req.params.id;
     try{
         const result = await cartService.buyCart(cartId,req.user._id);
-        
-        res.status(200).send(result);
+        const cart = await cartService.getCartPopulated(cartId)
+        const content = prettyfyCart(cart);
+
+        // Send the cart info to the user whatsapp, then to the admin whatsapp and admin email
+        try{
+            await sendEmail(`New order from ${req.user.firstName} ${req.user.lastName} - ${req.user.email}`,content);
+            loggerDefault.info(`New order from ${req.user.firstName} ${req.user.lastName} - ${req.user.email}`);
+        }
+        catch(error){
+            loggerErrors.error(error.message);
+        }
+
+        try{
+            await sendMessageAdmin(content);
+            loggerDefault.info("Message to admin sent")
+        }
+        catch(error){
+            loggerErrors.error(error.message);
+        }
+
+        try{
+            await sendMessage(req.user.phone,"Your order has been placed");
+            loggerDefault.info(`Sent message to user whatsapp ${req.user.phone}`);
+        }
+        catch(error){
+            loggerErrors.error(error.message);
+        }
+
+
+        loggerDefault.info("Order placed");
+        res.status(200).send({error:false,status:"Order placed"});
         
     }
     catch(error){
+        loggerErrors.error(error.message);
         res.status(400).send(error.message);
     }
 }

@@ -2,12 +2,12 @@
   "name": "ct_at_home",
   "version": "1.0.0",
   "description": "E-Commerce of several 3D printed products",
-  "main": "src/index.js",
+  "main": "src/init.js",
   "scripts": {
     "build": "webpack -w",
-    "start": "nodemon src/index.js",
-    "dev": "node src/index.js",
-    "debug": "nodemon --inspect src/index.js --config nodemon.json",
+    "start": "nodemon src/init.js",
+    "dev": "node src/init.js",
+    "debug": "nodemon --inspect src/init.js --config nodemon.json",
     "test": "jest"
   },
   "jest": {
@@ -34,6 +34,7 @@
     "firebase-admin": "^9.5.0",
     "joi": "^17.4.2",
     "log4js": "^6.3.0",
+    "minimist": "^1.2.5",
     "mongoose": "^6.0.7",
     "nodemailer": "^6.7.2",
     "passport": "^0.5.0",

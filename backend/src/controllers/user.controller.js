@@ -1,7 +1,8 @@
 
 import {userServiceAuth} from "../services/index.js";
 import { sendEmail } from "../utils/emailSender.js";
-import { fullUrl } from "../utils/getUrl.js";
+import { prettyfyUser } from "../utils/prettyfyObjects.js";
+
 const passport = userServiceAuth.passport;
 
 export async function logout(req, res){
@@ -19,23 +20,8 @@ export async function logout(req, res){
 export async function signupSuccess(req, res){
 
     //Send a whatsapp to the admin with the user information
-    const userContent = 
-    `
-    <h1>New user</h1>
-    <p>Time: ${req.user.timestamp.toISOString()}</p>
-    <p>First Name: ${req.user.firstName}</p>
-    <p>Last Name: ${req.user.lastName}</p>
-    <p>Email: ${req.user.email}</p>
-    <p>Phone: ${req.user.phone}</p>
-    <p>Address: ${req.user.address}</p>
-    <p>City: ${req.user.city}</p>
-    <p>Age: ${req.user.age}</p>
-    <p>Country: ${req.user.country}</p>
-    <p>Image:</p>
-    <img src="${fullUrl(req)}${req.user.photo}" alt="${req.user.firstName} ${req.user.lastName}">
-    `
-    
-    
+    const userContent = prettyfyUser(req.user);
+
     await sendEmail("New user",userContent)
     res.status(200).send(req.user);
 }
