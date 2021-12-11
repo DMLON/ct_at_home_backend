@@ -1,3 +1,4 @@
+import { userModel } from '../models/users.model.js';
 import {cartService} from '../services/index.js'
 import { sendEmail } from '../utils/emailSender.js';
 import { loggerDefault, loggerErrors } from '../utils/loggers.js';
@@ -13,17 +14,31 @@ export async function getProductsFromCart(req,res){
         res.status(200).send(products);
     }
     catch(error){
-        res.status(400).send({error:error});
+        loggerErrors.error(error.message)
+        res.status(400).send({error:true,status:error.message});
     }
 }
 
 export async function createCart(req,res){
     try{
-        const cart = await cartService.createCart();
-        res.status(200).send({id:cart.id});
+        loggerDefault.info(`Creating new cart`);
+
+        if (req.user){
+            const cart = await cartService.createCart();
+            const user = await userModel.findById(req.user._id);
+            user.carts.push(cart._id);
+            await user.save();
+            res.status(200).send({id:cart.id});
+        }
+        else{
+            throw new Error('User not found');
+        }
+        
+        
     }
     catch(error){
-        res.status(400).send(error.message);
+        loggerErrors.error(error.message)
+        res.status(400).send({error:true,status:error.message});
     }
 }
 
@@ -35,7 +50,8 @@ export async function addProductToCart(req,res){
         res.status(200).send(result);
     }
     catch(error){
-        res.status(400).send(error.message);
+        loggerErrors.error(error.message)
+        res.status(400).send({error:true,status:error.message});
     }
 }
 

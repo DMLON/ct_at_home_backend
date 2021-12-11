@@ -148,4 +148,38 @@ export default class BackendController {
             }
         };
     };
+
+    static UserController = class {
+        static endpoint = "http://localhost:8080/api/auth";
+        static signupUser= async(data)=>{
+            try{
+                const response = await fetch(`${this.endpoint}/signup`,{
+                    method:"POST",
+                    headers:{
+                        "Content-Type":"application/json"
+                    },
+                    body:JSON.stringify(data)
+                })
+                return response.status === 200 ? await response.json() : null;
+            }catch(error){
+                throw error;
+            }
+        }
+
+        static loginUser= async(data)=>{
+            try{
+                const response = await fetch(`${this.endpoint}/login`,{
+                    method:"POST",
+                    headers:{
+                        "Content-Type":"application/json"
+                    },
+                    body:JSON.stringify(data)
+                })
+                return response.status === 200 ? await response.json() : null;
+            }catch(error){
+                throw error;
+            }
+        }
+
+    };
 }

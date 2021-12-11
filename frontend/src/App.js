@@ -5,6 +5,8 @@ import ItemListContainer from "./components/itemListContainer"
 import ItemDetailContainer from "./components/itemDetailContainer";
 import Cart from "./routes/cart"
 import { CartProvider } from "./components/cartContext";
+import Login from "./components/auth/login";
+import Signup from "./components/auth/signup";
 
 
 // ["Catalogo", "Cotizador", "Contacto", "Acerca de", "Log In"];
@@ -15,6 +17,12 @@ function App() {
         <BrowserRouter>
             <NavBar/>
             <Switch>
+                <Route exact path="/login">
+                    <Login/>
+                </Route>
+                <Route exact path="/signup">
+                    <Signup/>
+                </Route>
                 <Route exact path="/cart">
                     <Cart/>
                 </Route>

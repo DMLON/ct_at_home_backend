@@ -1,7 +1,7 @@
 
 import { fullUrl } from "../utils/getUrl.js";
 //Falta arregalr el fullURL para que sea bien el public folder
-export const prettyfyUser = (user) => {
+export const prettyfyUser = (req,user) => {
     return `
     <h1>New user</h1>
     <p>Time: ${user.timestamp.toISOString()}</p>
@@ -10,7 +10,6 @@ export const prettyfyUser = (user) => {
     <p>Email: ${user.email}</p>
     <p>Phone: ${user.phone}</p>
     <p>Address: ${user.address}</p>
-    <p>City: ${user.city}</p>
     <p>Age: ${user.age}</p>
     <p>Country: ${user.country}</p>
     <p>Image:</p>

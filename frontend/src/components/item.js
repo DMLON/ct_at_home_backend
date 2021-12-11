@@ -15,11 +15,11 @@ const Item = ({item}) => {
     
     return (
             <div className="product card">
-                <NavLink className="product-link" to={`/item/${item.id}`}>
+                <NavLink className="product-link" to={`/item/${item._id}`}>
                     <img className="card-img-top product-img" alt={item.name} src={`${item.photo}`}></img>
                 </NavLink>
                 <div className="card-body w-100">
-                    <NavLink className="product-link" to={`/item/${item.id}`}>
+                    <NavLink className="product-link" to={`/item/${item._id}`}>
                         <h3 className="card-title">{item.name}</h3>
                         <h5>${item.price}</h5> 
                     </NavLink>

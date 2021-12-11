@@ -17,12 +17,12 @@ passport.use(
             passwordField: 'password',
             passReqToCallback: true,
         },
-    async (username, password, done) => {
-        userModel.findOne({ email:username }, (err, user) => {
+    async (req,email, password, done) => {
+        userModel.findOne({ email:email }, (err, user) => {
             if (err) return done(err);
 
             if (!user) {
-                loggerErrors.error("User not found with username " + username);
+                loggerErrors.error("User not found with email " + email);
                 return done(null, false);
             }
 
@@ -56,6 +56,7 @@ passport.use(
                     return done({error:true,status:"User already exists"}, false);
                 }
 
+
                 const newUser = {
 					timestamp: new Date(),
 					email: email,
@@ -67,7 +68,8 @@ passport.use(
 					address: req.body.address,
 					photo: req.body.photo,
 					age: req.body.age,
-                    isAdmin: false // Siempre es falso a menos que se cambie a mano en la db
+                    isAdmin: false, // Siempre es falso a menos que se cambie a mano en la db
+                    carts:[]
                 };
 
                 userModel.create(newUser, (err, userWithId) => {

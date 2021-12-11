@@ -9,10 +9,16 @@ import flash from "connect-flash";
 import router_cart from "./routers/cart.router.js";
 import router_products from "./routers/products.router.js";
 import router_users from "./routers/users.router.js";
+import router_upload from "./routers/upload.router.js";
 import {userServiceAuth} from "./services/index.js"
 const passport = userServiceAuth.passport;
 import "../database/mongo.js"
 import cors from 'cors';
+import path,{ dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(dirname(fileURLToPath(import.meta.url)));
+//F:\backup\Coderhouse\Backend\ct_at_home\backend\public\build\index.html
 
 export const  server = async ()=>{
     
@@ -43,18 +49,17 @@ export const  server = async ()=>{
     app.use(cors());
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
-    app.use(express.static("public"));
     app.use(cookieParser());
     app.use(passport.initialize()).use(passport.session());
-
+    app.use(express.static(__dirname + '/public'));
 
     app.use('/api/products',router_products)
     app.use('/api/cart',router_cart)
     app.use('/api/auth',router_users)
-
+    app.use("/api/upload",router_upload)
 
     app.get('*', function(req, res){
-        res.send({ error : -2, descripcion: `${req.originalUrl} Not found`});
+        res.sendFile("public/index.html",{ root: __dirname })
     });
 
     const PORT = process.env.PORT ? process.env.PORT : 8080;

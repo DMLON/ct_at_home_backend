@@ -53,13 +53,13 @@ export async function addProductToCart(cartId,productId,quantity) {
 			throw new Error('Quantity must be higher than 0 and lower than stock');
 		}
 
-		const idx = cart.products.findIndex(prd=> prd.product.id == productId);
+		const idx = cart.products.findIndex(prd=> prd.product._id == productId);
 
 		if(idx != -1){
 			cart.products[idx].quantity = quantity
 		}
 		else{
-			cart.products.push({quantity:quantity,product:product.id});
+			cart.products.push({quantity:quantity,product:product._id});
 		}
 		
 		
@@ -79,7 +79,7 @@ export async function deleteProductFromCart(cartId,productId){
 		if (!cart) {
 			throw new Error('Cart not found');
 		}
-		const products = cart.products.filter(prd=>prd.product.id != productId);
+		const products = cart.products.filter(prd=>prd.product._id != productId);
 		cart.products = products;
 		const success = await cart.save();
 		if (!success) {

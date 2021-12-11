@@ -6,7 +6,8 @@ import { Link, NavLink } from "react-router-dom";
 import { CartContext } from "./cartContext";
 
 const categories = [
-    {name:"Catalogo",link:"/"}];
+    {name:"Catalogo",link:"/"},
+    {name:"Login",link:"/login"}];
 
 function NavBarToggler(props) {
     return (

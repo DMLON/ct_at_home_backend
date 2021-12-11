@@ -1,25 +1,29 @@
 
 
 async function validateUser(req,res,next){
-    const {headers} = req
-    console.log("OK!"); 
+    
     try{
+        if(!req.user){
+            // res.send({ error : -1, descripcion: `${req.originalUrl} Not authorized`});
+            throw new Error("User is not admin!");
+        }
         try{
-            if(JSON.parse(headers.admin) == true){
+            if(req.user.isAdmin == true){
                 next();
             }
             else{
-                res.send({ error : -1, descripcion: `${req.originalUrl} Not authorized`});
+                // res.send({ error : -1, descripcion: `${req.originalUrl} Not authorized`});
                 throw new Error("User is not admin!");
             }
         }
         catch(error){
-            res.send({ error : -1, descripcion: `${req.originalUrl} Not authorized`});
+            // res.send({ error : -1, descripcion: `${req.originalUrl} Not authorized`});
             throw new Error("User is not admin!");
         }
     }
     catch(error){
-        next(error)
+        res.send({ error : -1, descripcion: `${req.originalUrl} Not authorized - ${error}`});
+        // next({error:error.message})
     }
 }
 

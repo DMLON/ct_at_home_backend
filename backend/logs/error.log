@@ -32,3 +32,37 @@
   code: 'EAUTH',
   command: 'API'
 }
+[2021-12-11T18:02:11.968] [ERROR] errors - Error in Saving user: ValidationError: phone: Path `phone` is invalid (+541131122054).
+[2021-12-11T18:03:54.314] [ERROR] errors - User already exists
+[2021-12-11T18:06:15.079] [ERROR] errors - Error: Invalid login: 535-5.7.8 Username and Password not accepted. Learn more at
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials o17sm5008173qtv.30 - gsmtp
+    at SMTPConnection._formatError (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\nodemailer\lib\smtp-connection\index.js:784:19)
+    at SMTPConnection._actionAUTHComplete (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1536:34)
+    at SMTPConnection.<anonymous> (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\nodemailer\lib\smtp-connection\index.js:540:26)
+    at SMTPConnection._processResponse (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\nodemailer\lib\smtp-connection\index.js:947:20)
+    at SMTPConnection._onData (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\nodemailer\lib\smtp-connection\index.js:749:14)
+    at TLSSocket.SMTPConnection._onSocketData (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\nodemailer\lib\smtp-connection\index.js:189:44)
+    at TLSSocket.emit (events.js:375:28)
+    at addChunk (internal/streams/readable.js:290:12)
+    at readableAddChunk (internal/streams/readable.js:265:9)
+    at TLSSocket.Readable.push (internal/streams/readable.js:204:10) {
+  code: 'EAUTH',
+  response: '535-5.7.8 Username and Password not accepted. Learn more at\n' +
+    '535 5.7.8  https://support.google.com/mail/?p=BadCredentials o17sm5008173qtv.30 - gsmtp',
+  responseCode: 535,
+  command: 'AUTH PLAIN'
+}
+[2021-12-11T18:39:00.678] [ERROR] errors - User already exists
+[2021-12-11T19:08:57.798] [ERROR] errors - Error: Product 123444 already exists
+[2021-12-11T19:29:16.573] [ERROR] errors - Error: Product 123444 already exists
+[2021-12-11T19:30:40.267] [ERROR] errors - Error: Product 123444 already exists
+[2021-12-11T19:30:55.695] [ERROR] errors - Error: Product 123444 already exists
+[2021-12-11T19:32:19.943] [ERROR] errors - Error: Product 123444 already exists
+[2021-12-11T19:35:35.533] [ERROR] errors - User not found
+[2021-12-11T19:36:26.745] [ERROR] errors - User not found
+[2021-12-11T19:36:38.102] [ERROR] errors - User not found
+[2021-12-11T19:36:59.034] [ERROR] errors - User not found
+[2021-12-11T19:40:33.149] [ERROR] errors - User not found
+[2021-12-11T19:40:36.314] [ERROR] errors - User not found
+[2021-12-11T19:40:37.455] [ERROR] errors - User not found
+[2021-12-11T20:14:12.124] [ERROR] errors - Error: Product not found

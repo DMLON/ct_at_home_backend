@@ -13,9 +13,9 @@ export async function createProduct(data) {
 	}
 }
 
-export async function getProduct(code) {
+export async function getProduct(productId) {
 	try {
-		const product = await productModel.find({ code })
+		const product = await productModel.findById(productId)
 		if (!product) {
 			throw new Error('Product not found')
 		}
@@ -34,26 +34,26 @@ export async function getAllProducts() {
 	}
 }
 
-export async function deleteProduct(code){
+export async function deleteProduct(productId){
     try {
-		const exist = await productModel.findOne({ code: code })
+		const exist = await productModel.findById(productId)
 		if (!exist) {
-			throw new Error(`Product ${code} does not exist`)
+			throw new Error(`Product ${productId} does not exist`)
 		}
-		const res = await productModel.deleteOne({code});
+		const res = await productModel.deleteOne({code:exist.code});
 		return res;
 	} catch (error) {
 		throw new Error(error)
 	}
 }
 
-export async function updateProduct(code,data){
+export async function updateProduct(productId,data){
     try {
-		const exist = await productModel.findOne({ code: data.code })
+		const exist = await productModel.findById(productId)
 		if (!exist) {
 			throw new Error(`Product ${data.code} does not exist`)
 		}
-		const product = await productModel.updateOne({code},{$set:{...data}});
+		const product = await productModel.updateOne({code:exist.code},{$set:{...data}});
 		return product;
 	} catch (error) {
 		throw new Error(error)

@@ -28,7 +28,7 @@ export const CartProvider = ({defaultValue = [], children}) => {
             _id = cartId;
 
         try{
-            const itemId= item.id;
+            const itemId= item._id;
             const response = await controller.addProductToCart(_id,itemId,quantity);
         }
         catch(error){
