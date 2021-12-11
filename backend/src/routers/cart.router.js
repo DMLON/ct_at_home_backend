@@ -19,7 +19,8 @@ router_cart.post('/', cartController.createCart);
 // Delete a cart
 router_cart.delete('/:id', cartController.deleteCart)
 
-
+// Sends a buy request to the cart
+router_cart.post('/:id/buy', cartController.buyCart);
 
 
 export default router_cart;

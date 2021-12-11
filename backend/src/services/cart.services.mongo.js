@@ -1,5 +1,7 @@
 import { cartModel } from "../models/cart.model.js"
 import { productModel } from "../models/product.model.js"
+import { loggerErrors } from "../utils/loggers.js"
+import { requestsService } from "./index.js"
 
 export async function createCart() {
 	try {
@@ -81,6 +83,37 @@ export async function deleteCart(cartId){
 		const resp = await cartModel.findByIdAndDelete(cartId);
 		return resp;
 	} catch (error) {
+		throw new Error(error)
+	}
+}
+
+export async function buyCart(cartId,userId){
+	try {
+		const cart = await cartModel.findById(cartId).populate('products.product');
+		if (!cart) {
+			throw new Error('Cart not found');
+		}
+
+		const products = cart.products.map(prd=>{
+			const product = prd.product;
+			
+			if ((product.stock - prd.quantity) >0)
+				product.stock = product.stock - prd.quantity;
+			else
+				throw new Error('Product quantity is superior to stock');
+			return product;
+		});
+
+		await Promise.all(products.map(prd=>prd.save()));
+		
+		await requestsService.createRequest(cartId,userId);
+
+		// All good
+		success = true;
+
+		return success;
+	} catch (error) {
+		loggerErrors.error(error);
 		throw new Error(error)
 	}
 }

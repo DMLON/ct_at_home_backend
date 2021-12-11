@@ -55,3 +55,16 @@ export async function deleteCart(req,res){
         res.status(400).send(error.message);
     }
 }
+
+export async function buyCart(req,res){
+    const cartId = req.params.id;
+    try{
+        const result = await cartService.buyCart(cartId,req.user._id);
+        
+        res.status(200).send(result);
+        
+    }
+    catch(error){
+        res.status(400).send(error.message);
+    }
+}

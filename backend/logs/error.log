@@ -8,3 +8,27 @@
 [2021-12-11T03:02:51.732] [ERROR] errors - User already exists
 [2021-12-11T03:06:09.292] [ERROR] errors - User already exists
 [2021-12-11T03:06:13.065] [ERROR] errors - User already exists
+[2021-12-11T04:37:42.941] [ERROR] errors - User already exists
+[2021-12-11T04:40:48.779] [ERROR] errors - Error: getaddrinfo ENOTFOUND gmail
+    at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:69:26)
+    at GetAddrInfoReqWrap.callbackTrampoline (internal/async_hooks.js:131:17) {
+  errno: -3008,
+  code: 'EDNS',
+  syscall: 'getaddrinfo',
+  hostname: 'gmail',
+  command: 'CONN'
+}
+[2021-12-11T04:43:06.681] [ERROR] errors - Error: Missing credentials for "PLAIN"
+    at SMTPConnection._formatError (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\nodemailer\lib\smtp-connection\index.js:784:19)
+    at SMTPConnection.login (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\nodemailer\lib\smtp-connection\index.js:438:38)
+    at F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\nodemailer\lib\smtp-transport\index.js:271:32
+    at SMTPConnection.<anonymous> (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\nodemailer\lib\smtp-connection\index.js:209:17)
+    at Object.onceWrapper (events.js:481:28)
+    at SMTPConnection.emit (events.js:375:28)
+    at SMTPConnection._actionEHLO (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\nodemailer\lib\smtp-connection\index.js:1319:14)
+    at SMTPConnection._processResponse (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\nodemailer\lib\smtp-connection\index.js:947:20)
+    at SMTPConnection._onData (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\nodemailer\lib\smtp-connection\index.js:749:14)
+    at TLSSocket.SMTPConnection._onSocketData (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\nodemailer\lib\smtp-connection\index.js:189:44) {
+  code: 'EAUTH',
+  command: 'API'
+}
