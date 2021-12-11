@@ -1,6 +1,5 @@
-import { Schema } from "mongoose"
-import { cartModel,ProductQuantity } from "../models/cart.model"
-import { productModel } from "../models/product.model"
+import { cartModel } from "../models/cart.model.js"
+import { productModel } from "../models/product.model.js"
 
 export async function createCart() {
 	try {

@@ -1,4 +1,4 @@
-import { productModel } from "../models/product.model";
+import { productModel } from "../models/product.model.js";
 
 export async function createProduct(data) {
 	try {
@@ -8,7 +8,7 @@ export async function createProduct(data) {
 		}
 		const response = await productModel.create({timestamp:new Date(), ...data})
 		return response
-	} catch (error:any) {
+	} catch (error) {
 		throw new Error(error)
 	}
 }
@@ -20,7 +20,7 @@ export async function getProduct(code) {
 			throw new Error('Product not found')
 		}
 		return product
-	} catch (error:any) {
+	} catch (error) {
 		throw new Error(error)
 	}
 }
@@ -29,7 +29,7 @@ export async function getAllProducts() {
 	try {
 		const products = await productModel.find({});
 		return products;
-	} catch (error:any) {
+	} catch (error) {
 		throw new Error(error)
 	}
 }
@@ -42,7 +42,7 @@ export async function deleteProduct(code){
 		}
 		const res = await productModel.deleteOne({code});
 		return res;
-	} catch (error:any) {
+	} catch (error) {
 		throw new Error(error)
 	}
 }
@@ -55,7 +55,7 @@ export async function updateProduct(code,data){
 		}
 		const product = await productModel.updateOne({code},{$set:{...data}});
 		return product;
-	} catch (error:any) {
+	} catch (error) {
 		throw new Error(error)
 	}
 }

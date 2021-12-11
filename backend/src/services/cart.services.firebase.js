@@ -62,7 +62,7 @@ export async function addProductToCart(cartId,productCode,quantity) {
 			throw new Error('Could not add product to cart');
 		}
 		return success;
-	} catch (error:any) {
+	} catch (error) {
 		throw new Error(error)
 	}
 }
@@ -83,7 +83,7 @@ export async function deleteProductFromCart(cartId,productCode){
 		if (!success) {
 			throw new Error('Could not delete product from cart');
 		}
-	} catch (error:any) {
+	} catch (error) {
 		throw new Error(error)
 	}
 }

@@ -1,5 +1,5 @@
-import {Router} from 'express';
-import { cartController } from '../controllers/index';
+import { Router } from 'express';
+import { cartController } from '../controllers/index.js';
 
 const router_cart = Router();
 

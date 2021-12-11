@@ -1,4 +1,4 @@
-import {productService} from '../services/index'
+import {productService} from '../services/index.js'
 
 export async function getProducts(req,res){
     if(!req.params.id){
@@ -6,7 +6,7 @@ export async function getProducts(req,res){
             const products = await productService.getAllProducts();
             res.status(200).send(products);
         }
-        catch(error:any){
+        catch(error){
             res.status(400).send({error:error});
         }
     }
@@ -16,7 +16,7 @@ export async function getProducts(req,res){
             const product = await productService.getProduct(req.params.id);
             res.status(200).send(product);
         }
-        catch(error: any){
+        catch(error){
             res.status(400).send(error.message);
         }
     }
@@ -28,7 +28,7 @@ export async function createProduct(req,res){
         const product = await productService.createProduct(req.body);
         res.status(200).send({id:product.id});
     }
-    catch(error: any){
+    catch(error){
         res.status(400).send(error.message);
     }
 }
@@ -39,7 +39,7 @@ export async function editProduct(req,res){
         const result = await productService.updateProduct(code,req.body);
         res.status(200).send(result);
     }
-    catch(error: any){
+    catch(error){
         res.status(400).send(error.message);
     }
 }
@@ -50,7 +50,7 @@ export async function deleteProduct(req,res){
         const result = await productService.deleteProduct(code);
         res.status(200).send(result);
     }
-    catch(error: any){
+    catch(error){
         res.status(400).send(error.message);
     }
 }

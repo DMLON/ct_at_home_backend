@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
-import {connectionStringTest} from "./configs/mongodb"
+import {connectionString} from "./configs/mongodb.js"
 mongoose.connect(
-	connectionStringTest,
+	connectionString,
 	{
 		useNewUrlParser: true,
 		useUnifiedTopology: true,

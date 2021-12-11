@@ -1,5 +1,5 @@
 services:
-  mongo:
+  mongo-ecommerce:
     image: mongo
     container_name: mongodb
     env_file:

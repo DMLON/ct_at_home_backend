@@ -2,16 +2,6 @@ import mongoose from "mongoose";
 
 const ProductCollection = "products";
 
-export interface Product{
-    timestamp: Date
-    name: String,
-    description:  String, 
-    code: String, 
-    photo:String, 
-    price: Number, 
-    stock:  Number, 
-}
-
 export const ProductSchema = new mongoose.Schema({
     timestamp: {type: Date},
     name: {type: String, required: true, unique:true},
@@ -22,4 +12,4 @@ export const ProductSchema = new mongoose.Schema({
     stock: {type: Number, required: true},
 })
 
-export const productModel = mongoose.model<Product>(ProductCollection,ProductSchema);
+export const productModel = mongoose.model(ProductCollection,ProductSchema);
