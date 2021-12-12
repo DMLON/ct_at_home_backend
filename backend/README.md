@@ -14,20 +14,18 @@ Run with nodemon.json config to ignore local updates to products.json database
 
 Create the typescript init file with `npx tsc --init`
 
-Set on the .env file the following settings 
+Set on the .env file the following settings
 
 PORT=xxxx
 
 HOST= url:port  // HOST of the database (For mongo only)
- 
-USER=mongodbuser
- 
-PASSWORD=mongodbPassword
- 
-DATABASE=databseName
- 
 
- 
+USER=mongodbuser
+
+PASSWORD=mongodbPassword
+
+DATABASE=databseName
+
 Change between firebase and mongodb in the services/index.ts file uncommenting the line that is needed.
 
 ### Firebase
@@ -37,3 +35,8 @@ Use correct credentials for firebase changing the firebaseCredentials.js file in
 ### MongoDB
 
 For mongo run mongorestore on backend folder
+
+
+**Tests**
+
+Login with user 123@123.1234 pass 123

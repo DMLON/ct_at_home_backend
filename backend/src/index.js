@@ -16,6 +16,7 @@ import "../database/mongo.js"
 import cors from 'cors';
 import path,{ dirname } from 'path';
 import { fileURLToPath } from 'url';
+import router_requests from "./routers/requests.router.js";
 
 const __dirname = dirname(dirname(fileURLToPath(import.meta.url)));
 //F:\backup\Coderhouse\Backend\ct_at_home\backend\public\build\index.html
@@ -57,7 +58,7 @@ export const  server = async ()=>{
     app.use('/api/cart',router_cart)
     app.use('/api/auth',router_users)
     app.use("/api/upload",router_upload)
-
+    app.use("/api/requests",router_requests)
     app.get('*', function(req, res){
         res.sendFile("public/index.html",{ root: __dirname })
     });

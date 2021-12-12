@@ -121,7 +121,7 @@ export async function buyCart(cartId,userId){
 		await requestsService.createRequest(cartId,userId);
 
 		// All good
-		success = true;
+		const success = true;
 
 		return success;
 	} catch (error) {

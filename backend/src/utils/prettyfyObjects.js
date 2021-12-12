@@ -21,12 +21,12 @@ export const prettyfyCart = (cart) => {
     const totalPrice = cart.products.reduce((acc, item) => acc + item.product.price * item.quantity, 0)
     const products = cart.products.map(p => {
         return `
-        <div>
-            <h2>${p.product.name}</h2>
-            <p>Price: $${p.product.price}</p>
-            <p>Quantity: ${p.quantity}</p>
-            <p>Total: $${p.product.price * p.quantity}</p>
-        </div>
+        <tr>
+            <td>${p.product.name}</td>
+            <td>Price: $${p.product.price}</td>
+            <td>Quantity: ${p.quantity}</td>
+            <td>Total: $${p.product.price * p.quantity}</td>
+        </tr>
         `
     });
     

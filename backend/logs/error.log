@@ -66,3 +66,141 @@
 [2021-12-11T19:40:36.314] [ERROR] errors - User not found
 [2021-12-11T19:40:37.455] [ERROR] errors - User not found
 [2021-12-11T20:14:12.124] [ERROR] errors - Error: Product not found
+[2021-12-11T20:35:07.808] [ERROR] errors - User not found
+[2021-12-11T20:42:12.193] [ERROR] errors - User not found with email username1201000199002@mail.com
+[2021-12-11T20:42:12.195] [ERROR] errors - POST /auth/login - AuthenticationError: Unauthorized
+[2021-12-11T20:44:27.663] [ERROR] errors - ReferenceError: success is not defined
+    at Module.buyCart (file:///F:/backup/Coderhouse/Backend/ct_at_home/backend/src/services/cart.services.mongo.js:124:11)
+    at processTicksAndRejections (internal/process/task_queues.js:95:5)
+    at async buyCart (file:///F:/backup/Coderhouse/Backend/ct_at_home/backend/src/controllers/cart.controller.js:84:24)
+[2021-12-11T20:45:02.642] [ERROR] errors - Error: Error: Request for cart undefined already exists and is pending
+    at Module.createRequest (file:///F:/backup/Coderhouse/Backend/ct_at_home/backend/src/services/requests.services.mongo.js:12:9)
+    at processTicksAndRejections (internal/process/task_queues.js:95:5)
+    at async Module.buyCart (file:///F:/backup/Coderhouse/Backend/ct_at_home/backend/src/services/cart.services.mongo.js:121:3)
+    at async buyCart (file:///F:/backup/Coderhouse/Backend/ct_at_home/backend/src/controllers/cart.controller.js:84:24)
+[2021-12-11T20:45:12.928] [ERROR] errors - Error: Error: Request for cart undefined already exists and is pending
+[2021-12-11T20:46:12.018] [ERROR] errors - Error: Error: Request for cart undefined already exists and is pending
+    at Module.createRequest (file:///F:/backup/Coderhouse/Backend/ct_at_home/backend/src/services/requests.services.mongo.js:12:9)
+    at processTicksAndRejections (internal/process/task_queues.js:95:5)
+    at async Module.buyCart (file:///F:/backup/Coderhouse/Backend/ct_at_home/backend/src/services/cart.services.mongo.js:121:3)
+    at async buyCart (file:///F:/backup/Coderhouse/Backend/ct_at_home/backend/src/controllers/cart.controller.js:84:24)
+[2021-12-11T20:46:12.019] [ERROR] errors - Error: Error: Request for cart undefined already exists and is pending
+[2021-12-11T20:56:57.190] [ERROR] errors - RestException [Error]: The 'To' number +1234567890 is not a valid phone number.
+    at success (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\twilio\lib\base\Version.js:135:15)
+    at Promise_then_fulfilled (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\q\q.js:766:44)
+    at Promise_done_fulfilled (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\q\q.js:835:31)
+    at Fulfilled_dispatch [as dispatch] (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\q\q.js:1229:9)
+    at Pending_become_eachMessage_task (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\q\q.js:1369:30)
+    at RawTask.call (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\asap\asap.js:40:19)
+    at flush (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\asap\raw.js:50:29)
+    at processTicksAndRejections (internal/process/task_queues.js:77:11) {
+  status: 400,
+  code: 21211,
+  moreInfo: 'https://www.twilio.com/docs/errors/21211',
+  details: undefined
+}
+[2021-12-11T20:56:57.199] [ERROR] errors - RestException [Error]: The 'To' number whatsapp:++549113112254 is not a valid phone number.
+    at success (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\twilio\lib\base\Version.js:135:15)
+    at Promise_then_fulfilled (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\q\q.js:766:44)
+    at Promise_done_fulfilled (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\q\q.js:835:31)
+    at Fulfilled_dispatch [as dispatch] (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\q\q.js:1229:9)
+    at Pending_become_eachMessage_task (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\q\q.js:1369:30)
+    at RawTask.call (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\asap\asap.js:40:19)
+    at flush (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\asap\raw.js:50:29)
+    at processTicksAndRejections (internal/process/task_queues.js:77:11) {
+  status: 400,
+  code: 21211,
+  moreInfo: 'https://www.twilio.com/docs/errors/21211',
+  details: undefined
+}
+[2021-12-11T20:57:34.120] [ERROR] errors - Error: Error: Request for cart undefined already exists and is pending
+    at Module.createRequest (file:///F:/backup/Coderhouse/Backend/ct_at_home/backend/src/services/requests.services.mongo.js:12:9)
+    at processTicksAndRejections (internal/process/task_queues.js:95:5)
+    at async Module.buyCart (file:///F:/backup/Coderhouse/Backend/ct_at_home/backend/src/services/cart.services.mongo.js:121:3)
+    at async buyCart (file:///F:/backup/Coderhouse/Backend/ct_at_home/backend/src/controllers/cart.controller.js:86:24)
+[2021-12-11T20:57:34.122] [ERROR] errors - Error: Error: Request for cart undefined already exists and is pending
+[2021-12-11T21:04:29.733] [ERROR] errors - Error: Product quantity is superior to stock
+    at file:///F:/backup/Coderhouse/Backend/ct_at_home/backend/src/services/cart.services.mongo.js:115:11
+    at Array.map (<anonymous>)
+    at Proxy.methods.<computed> (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\mongoose\lib\types\array\methods\index.js:956:24)
+    at Module.buyCart (file:///F:/backup/Coderhouse/Backend/ct_at_home/backend/src/services/cart.services.mongo.js:109:34)
+    at processTicksAndRejections (internal/process/task_queues.js:95:5)
+    at async buyCart (file:///F:/backup/Coderhouse/Backend/ct_at_home/backend/src/controllers/cart.controller.js:86:24)
+[2021-12-11T21:04:35.694] [ERROR] errors - Error: Product quantity is superior to stock
+[2021-12-11T21:06:06.370] [ERROR] errors - RestException [Error]: The 'To' number +1234567890 is not a valid phone number.
+    at success (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\twilio\lib\base\Version.js:135:15)
+    at Promise_then_fulfilled (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\q\q.js:766:44)
+    at Promise_done_fulfilled (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\q\q.js:835:31)
+    at Fulfilled_dispatch [as dispatch] (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\q\q.js:1229:9)
+    at Pending_become_eachMessage_task (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\q\q.js:1369:30)
+    at RawTask.call (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\asap\asap.js:40:19)
+    at flush (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\asap\raw.js:50:29)
+    at processTicksAndRejections (internal/process/task_queues.js:77:11) {
+  status: 400,
+  code: 21211,
+  moreInfo: 'https://www.twilio.com/docs/errors/21211',
+  details: undefined
+}
+[2021-12-11T21:08:31.655] [ERROR] errors - RestException [Error]: The 'To' number +1234567890 is not a valid phone number.
+    at success (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\twilio\lib\base\Version.js:135:15)
+    at Promise_then_fulfilled (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\q\q.js:766:44)
+    at Promise_done_fulfilled (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\q\q.js:835:31)
+    at Fulfilled_dispatch [as dispatch] (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\q\q.js:1229:9)
+    at Pending_become_eachMessage_task (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\q\q.js:1369:30)
+    at RawTask.call (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\asap\asap.js:40:19)
+    at flush (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\asap\raw.js:50:29)
+    at processTicksAndRejections (internal/process/task_queues.js:77:11) {
+  status: 400,
+  code: 21211,
+  moreInfo: 'https://www.twilio.com/docs/errors/21211',
+  details: undefined
+}
+[2021-12-11T21:14:25.324] [ERROR] errors - RestException [Error]: The 'To' number +1234567890 is not a valid phone number.
+    at success (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\twilio\lib\base\Version.js:135:15)
+    at Promise_then_fulfilled (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\q\q.js:766:44)
+    at Promise_done_fulfilled (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\q\q.js:835:31)
+    at Fulfilled_dispatch [as dispatch] (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\q\q.js:1229:9)
+    at Pending_become_eachMessage_task (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\q\q.js:1369:30)
+    at RawTask.call (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\asap\asap.js:40:19)
+    at flush (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\asap\raw.js:50:29)
+    at processTicksAndRejections (internal/process/task_queues.js:77:11) {
+  status: 400,
+  code: 21211,
+  moreInfo: 'https://www.twilio.com/docs/errors/21211',
+  details: undefined
+}
+[2021-12-11T21:14:25.327] [ERROR] errors - The 'To' number +1234567890 is not a valid phone number.
+[2021-12-11T21:19:18.689] [ERROR] errors - Error: Error: Request for cart 61b535b4833883f779951711 already exists and is pending
+    at Module.createRequest (file:///F:/backup/Coderhouse/Backend/ct_at_home/backend/src/services/requests.services.mongo.js:12:9)
+    at processTicksAndRejections (internal/process/task_queues.js:95:5)
+    at async Module.buyCart (file:///F:/backup/Coderhouse/Backend/ct_at_home/backend/src/services/cart.services.mongo.js:121:3)
+    at async buyCart (file:///F:/backup/Coderhouse/Backend/ct_at_home/backend/src/controllers/cart.controller.js:86:24)
+[2021-12-11T21:19:18.691] [ERROR] errors - Error: Error: Request for cart 61b535b4833883f779951711 already exists and is pending
+[2021-12-11T21:19:37.704] [ERROR] errors - Error sending message to 1234567890 with error Error: The 'To' number +1234567890 is not a valid phone number.
+[2021-12-11T21:20:19.759] [ERROR] errors - Error: Product quantity is superior to stock
+    at file:///F:/backup/Coderhouse/Backend/ct_at_home/backend/src/services/cart.services.mongo.js:115:11
+    at Array.map (<anonymous>)
+    at Proxy.methods.<computed> (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\mongoose\lib\types\array\methods\index.js:956:24)
+    at Module.buyCart (file:///F:/backup/Coderhouse/Backend/ct_at_home/backend/src/services/cart.services.mongo.js:109:34)
+    at processTicksAndRejections (internal/process/task_queues.js:95:5)
+    at async buyCart (file:///F:/backup/Coderhouse/Backend/ct_at_home/backend/src/controllers/cart.controller.js:86:24)
+[2021-12-11T21:20:19.761] [ERROR] errors - Error: Product quantity is superior to stock
+[2021-12-11T21:21:03.916] [ERROR] errors - Error sending message to 1234567890 with error Error: The 'To' number +1234567890 is not a valid phone number.
+[2021-12-11T21:24:38.323] [ERROR] errors - TypeError: Cannot read property 'stock' of null
+    at file:///F:/backup/Coderhouse/Backend/ct_at_home/backend/src/services/cart.services.mongo.js:112:17
+    at Array.map (<anonymous>)
+    at Proxy.methods.<computed> (F:\backup\Coderhouse\Backend\ct_at_home\backend\node_modules\mongoose\lib\types\array\methods\index.js:956:24)
+    at Module.buyCart (file:///F:/backup/Coderhouse/Backend/ct_at_home/backend/src/services/cart.services.mongo.js:109:34)
+    at processTicksAndRejections (internal/process/task_queues.js:95:5)
+    at async buyCart (file:///F:/backup/Coderhouse/Backend/ct_at_home/backend/src/controllers/cart.controller.js:86:24)
+[2021-12-11T21:24:38.326] [ERROR] errors - TypeError: Cannot read property 'stock' of null
+[2021-12-11T21:26:52.077] [ERROR] errors - Error: Error: Request for cart 61b535b4833883f779951711 already exists and is pending
+    at Module.createRequest (file:///F:/backup/Coderhouse/Backend/ct_at_home/backend/src/services/requests.services.mongo.js:12:9)
+    at processTicksAndRejections (internal/process/task_queues.js:95:5)
+    at async Module.buyCart (file:///F:/backup/Coderhouse/Backend/ct_at_home/backend/src/services/cart.services.mongo.js:121:3)
+    at async buyCart (file:///F:/backup/Coderhouse/Backend/ct_at_home/backend/src/controllers/cart.controller.js:86:24)
+[2021-12-11T21:26:52.079] [ERROR] errors - Error: Error: Request for cart 61b535b4833883f779951711 already exists and is pending
+[2021-12-11T21:27:13.310] [ERROR] errors - Error sending message to 1234567890 with error Error: The 'To' number +1234567890 is not a valid phone number.
+[2021-12-11T21:29:32.318] [ERROR] errors - Error sending message to 1234567890 with error Error: The 'To' number +1234567890 is not a valid phone number.
+[2021-12-11T21:30:03.179] [ERROR] errors - Error sending message to 1234567890 with error Error: The 'To' number +1234567890 is not a valid phone number.
+[2021-12-11T21:46:01.795] [ERROR] errors - Error getting requests Error: ReferenceError: _id is not defined

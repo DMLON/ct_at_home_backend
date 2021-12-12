@@ -25,15 +25,18 @@ export async function sendMessageAdmin(content){
     @param to - Phone number without +
     @param content
  */
-export async function sendMessage(to, body) {
-    try {
-        const message = await client.messages.create({
+export function sendMessage(to, body) {
+    client.messages.create({
         body: body,
         to: `whatsapp:+${to}`,
         from: `whatsapp:${TWILIO_PHONE}`,
-        });
-        loggerDefault.info(`WPP sent succesfully with SID: ${message.sid}`);
-    } catch (e) {
-        loggerErrors.error(e)
-    }
+        })
+        .then(message => {
+            loggerDefault.info(`Message sent succesfully to ${to} with sid ${message.sid}`);
+        })
+        .catch(err => {
+            loggerErrors.error(`Error sending message to ${to} with error ${err}`);
+        })
+        .done();
+    loggerDefault.info(`WPP sent to ${to}`);
 }

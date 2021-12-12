@@ -63,7 +63,8 @@ export async function deleteProductFromCart(req,res){
         res.status(200).send(result);
     }
     catch(error){
-        res.status(400).send(error.message);
+        loggerErrors.error(error.message)
+        res.status(400).send({error:true,status:error.message});
     }
 }
 
@@ -74,7 +75,8 @@ export async function deleteCart(req,res){
         res.status(200).send(result);
     }
     catch(error){
-        res.status(400).send(error.message);
+        loggerErrors.error(error.message)
+            res.status(400).send({error:true,status:error.message});
     }
 }
 
@@ -95,7 +97,7 @@ export async function buyCart(req,res){
         }
 
         try{
-            await sendMessageAdmin(content);
+            sendMessageAdmin(content);
             loggerDefault.info("Message to admin sent")
         }
         catch(error){
@@ -103,7 +105,7 @@ export async function buyCart(req,res){
         }
 
         try{
-            await sendMessage(req.user.phone,"Your order has been placed");
+            sendMessage(req.user.phone,"Your order has been placed");
             loggerDefault.info(`Sent message to user whatsapp ${req.user.phone}`);
         }
         catch(error){
@@ -116,7 +118,7 @@ export async function buyCart(req,res){
         
     }
     catch(error){
-        loggerErrors.error(error.message);
-        res.status(400).send(error.message);
+        loggerErrors.error(error.message)
+        res.status(400).send({error:true,status:error.message});
     }
 }
