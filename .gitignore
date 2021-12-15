@@ -3,3 +3,4 @@ node_modules
 firebaseCredentialsMine*
 package-lock*
 .vscode
+dist
