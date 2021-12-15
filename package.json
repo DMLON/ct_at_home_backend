@@ -8,9 +8,8 @@
     "start": "node dist/main.js",
     "dev": "nodemon src/init.js",
     "debug": "nodemon --inspect src/init.js --config nodemon.json",
-    "test": "jest",
-    "postinstall": "npm run build"
-  },
+    "test": "jest"
+    },
   "jest": {
     "watchPathIgnorePatterns": [
       "json",

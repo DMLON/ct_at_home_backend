@@ -36,7 +36,10 @@ Use correct credentials for firebase changing the firebaseCredentials.js file in
 
 For mongo run mongorestore on backend folder
 
-
 **Tests**
 
 Login with user 123@123.1234 pass 123
+
+**Deployed on heroku in**
+
+https://ctathome.herokuapp.com/
