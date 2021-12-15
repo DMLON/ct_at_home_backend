@@ -246,3 +246,7 @@
     at async buyCart (file:///F:/backup/Coderhouse/Backend/ct_at_home/backend/src/controllers/cart.controller.js:86:24)
 [2021-12-15T04:02:05.198] [ERROR] errors - Error: ReferenceError: cart is not defined
 [2021-12-15T04:02:48.870] [ERROR] errors - Error sending message to 123 with error Error: The 'To' number +123 is not a valid phone number.
+[2021-12-15T04:06:11.481] [ERROR] errors - Error sending message to 123 with error Error: The 'To' number +123 is not a valid phone number.
+[2021-12-15T04:06:22.122] [ERROR] errors - User not found
+[2021-12-15T04:06:26.802] [ERROR] errors - User not found
+[2021-12-15T04:06:32.807] [ERROR] errors - User not found
