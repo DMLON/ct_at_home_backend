@@ -5,8 +5,8 @@
   "main": "src/init.js",
   "scripts": {
     "build": "webpack",
-    "start": "nodemon src/init.js",
-    "dev": "node src/init.js",
+    "start": "node src/init.js",
+    "dev": "nodemon src/init.js",
     "debug": "nodemon --inspect src/init.js --config nodemon.json",
     "test": "jest"
   },
