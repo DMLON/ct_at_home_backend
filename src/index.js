@@ -19,7 +19,7 @@ import { fileURLToPath } from 'url';
 import router_requests from "./routers/requests.router.js";
 import { LogInfoMethod } from "./middlewares/logger.js";
 
-const __dirname = dirname(dirname(fileURLToPath(import.meta.url)));
+const __dirname = "/app"
 //F:\backup\Coderhouse\Backend\ct_at_home\backend\public\build\index.html
 
 export const  server = async ()=>{
