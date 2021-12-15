@@ -40,3 +40,9 @@ For mongo run mongorestore on backend folder
 **Tests**
 
 Login with user 123@123.1234 pass 123
+
+### Heroku deploy
+
+Using branch PROD
+
+https://ctathome.herokuapp.com/
