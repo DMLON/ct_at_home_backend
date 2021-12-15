@@ -4,6 +4,8 @@ import CartWidget from "./cartWidget";
 import { Link, NavLink } from "react-router-dom";
 
 import { CartContext } from "./cartContext";
+import { LoginContext } from "./auth/loginContext";
+import Logout from "./logout";
 
 const categories = [
     {name:"Catalogo",link:"/"},
@@ -30,14 +32,40 @@ function NavBarToggler(props) {
 function NavBar() {
     const cartContext = useContext(CartContext)
 
+    const loginContext = useContext(LoginContext);
+
+
+
     function renderCategory(category) {
+        const category_internal = {...category};
+        if(category.name == "Login"){
+            if(loginContext.user){
+                category_internal.link = "/logout";
+                category_internal.name = "Logout";
+
+                return (
+                    <Logout category={category_internal}></Logout>
+                );
+
+            }            
+        }
         return (
-            <li key={category.name} className={"nav-item"}>
-                <NavLink exact activeClassName="selected-link" className={"nav-link active"} to={category.link} aria-current={"page"}>
-                    {category.name}
+            <li key={category_internal.name} className={"nav-item"}>
+                <NavLink exact activeClassName="selected-link" className={"nav-link active"} to={category_internal.link} aria-current={"page"}>
+                    {category_internal.name}
                 </NavLink>
             </li>
         );
+    }
+
+    function renderUser(){
+        if(loginContext.user){
+            return (
+                <li className={"nav-item"}>
+                    Hello {loginContext.user.firstName}
+                </li>
+            );
+        }
     }
     return (
         <nav className={"navbar navbar-expand-lg navbar-light bg-soft-yellow"}>
@@ -48,6 +76,7 @@ function NavBar() {
                     <ul className={"navbar-nav me-auto mb-2 mb-lg-0"}>
                         {categories.map((category) => renderCategory(category))}
                     </ul>
+                    {renderUser()}
                     {cartContext.cart.length > 0?
                     <NavLink className="nav-link-custom" exact activeClassName="selected-link" to="/cart">
                         <CartWidget />

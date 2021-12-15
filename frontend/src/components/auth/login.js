@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import BackendController from "../../helpers/backendController";
+import { LoginContext } from "./loginContext";
 
 // create login component
 const Login = () => {
@@ -9,9 +10,25 @@ const Login = () => {
         password: "",
     });
 
+    const userTemplate = {
+        firstName: "",
+        lastName: "",
+        email: "",
+        address:"", 
+        country:"", 
+        age:"", 
+        phone:"",
+        photo:""
+    };
+
+    const [error,setError] = useState(null);
+
+    const loginContext = useContext(LoginContext);
+
     const { email, password } = user;
 
     const controller = BackendController.UserController;
+    const history = useHistory();
 
     const onChange = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value });
@@ -23,10 +40,15 @@ const Login = () => {
         console.log(user);
         controller.loginUser(user)
             .then(res => {
-                console.log(res);
-                window.location = "/";
+                debugger;
+                const {...userTemplate} = {...res};
+                console.log(userTemplate);
+                loginContext.setUser(userTemplate);
+                history.push(`/`);
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                setError(err.message);
+            });
         
     };
 
@@ -44,6 +66,7 @@ const Login = () => {
                         <label htmlFor="password">Password</label>
                         <input placeholder="Password" className="form-control" type="password" name="password" value={password} onChange={onChange} required />
                     </div>
+                    {error == null ? <></> : <p className="text-danger">Error while logging in. Check info.</p>}
                     <input type="submit" value="Login" className="mt-3 btn btn-primary btn-block" />
                 </form>
                 <p className="my-1">

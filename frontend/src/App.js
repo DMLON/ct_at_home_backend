@@ -7,12 +7,14 @@ import Cart from "./routes/cart"
 import { CartProvider } from "./components/cartContext";
 import Login from "./components/auth/login";
 import Signup from "./components/auth/signup";
+import { LoginProvider } from "./components/auth/loginContext";
 
 
 // ["Catalogo", "Cotizador", "Contacto", "Acerca de", "Log In"];
 
 function App() {
     return (
+        <LoginProvider>
       <CartProvider>
         <BrowserRouter>
             <NavBar/>
@@ -35,6 +37,7 @@ function App() {
             </Switch>
         </BrowserRouter>
       </CartProvider>
+      </LoginProvider>
     );
     
 }

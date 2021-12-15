@@ -7,8 +7,6 @@ import { prettyfyUser } from "../utils/prettyfyObjects.js";
 const passport = userServiceAuth.passport;
 
 export async function logout(req, res){
-    const ip = req.clientIp;
-    loggerDefault.info(`[${ip}] - POST /auth/logout`);
     req.session.destroy((err) => {
         let result = null;
         if (!err) result = { error: false, status: "ok", redirectURL: "/" };
@@ -32,7 +30,6 @@ export async function signupError(err,req,res,next){
 
 //Place holder, only called after login returns good response, will not call res due to login already calling it
 export async function loginSuccess(req, res){
-    loggerDefault.info(`POST /auth/login`);
     res.status(200).send(req.user);
 }
 

@@ -6,7 +6,7 @@ export async function createRequest(cartId,user) {
 		if (exist) {
 			throw new Error(`Request for cart ${cartId} already exists and is pending`)
 		}
-		const response = await requestsModel.create({timestamp:new Date(), cart: cart, user: user._id, status: "pending"})
+		const response = await requestsModel.create({timestamp:new Date(), cart: cartId, user: user._id, status: "pending"})
 		return response
 	} catch (error) {
 		throw new Error(error)

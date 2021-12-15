@@ -1,10 +1,14 @@
 import axios from "axios";
 import React, { useState, useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import BackendController from "../../helpers/backendController";
+import { LoginContext } from "./loginContext";
 
 //create signup component
 const Signup = () => {
+    // To redirect after sign in
+    const history = useHistory();
+    const loginContext = useContext(LoginContext);
     const [imageFile, setImageFile] = useState("");
     const [sucessUpload, setSucessUpload] = useState(null);
     const [user, setUser] = useState({
@@ -38,12 +42,11 @@ const Signup = () => {
             imageFile.name
         );
         console.log(formData);
-        setUser({ ...user, photo: imageFile.name });
 
-        axios.post("http://localhost:8080/api/upload", formData)
+        axios.post(BackendController.baseEndpoint+"/api/upload", formData)
             .then(res => { 
-                console.log(res.data)
-                setImageFile('http://localhost:8080/uploads/'+res.data.file.filename);
+                setImageFile(BackendController.baseEndpoint+"/uploads/"+res.data.file.filename);
+                setUser({ ...user, photo: res.data.file.filename });
                 setSucessUpload(true);
             }).catch(err => {
                 console.log(err);
@@ -61,8 +64,10 @@ const Signup = () => {
         console.log(user);
         controller.signupUser(user)
             .then(res => {
-                console.log(res);
-                window.location = "/login";
+                const frontUser = {...user};
+                delete frontUser.password;
+                loginContext.setUser(frontUser);
+                history.push(`/`);
             })
             .catch(err => console.log(err));
         

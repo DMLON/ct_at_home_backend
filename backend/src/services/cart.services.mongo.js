@@ -14,7 +14,7 @@ export async function createCart() {
 
 export async function getAllProducts(cartId) {
 	try {
-		const cart = await cartModel.findById(cartId );
+		const cart = await cartModel.findById(cartId ).populate("products.product");
 		if (!cart) {
 			throw new Error('Cart not found');
 		}
@@ -84,6 +84,9 @@ export async function deleteProductFromCart(cartId,productId){
 		const success = await cart.save();
 		if (!success) {
 			throw new Error('Could not save cart');
+		}
+		else{
+			return {error:false, status:"Product deleted from cart"}
 		}
 	} catch (error) {
 		throw new Error(error)

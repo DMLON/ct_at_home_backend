@@ -12,6 +12,7 @@ export const CartProvider = ({defaultValue = [], children}) => {
         // Si el cart Id es 0 es porque no se genero un carrito
         if(cartId === null){
             try{
+                debugger;
                 var id = await controller.createCart();
                 setCartId(id.id);
             }
@@ -20,7 +21,7 @@ export const CartProvider = ({defaultValue = [], children}) => {
                 return;
             }
         }
-
+        debugger;
         let _id = null;
         if(id?.id != undefined)
             _id = id.id;
@@ -85,7 +86,7 @@ export const CartProvider = ({defaultValue = [], children}) => {
         return cart.reduce((sum,itemQuantity)=>sum+itemQuantity.quantity,0)
     }
 
-    return <CartContext.Provider value={{cart,addItem,removeItem,clear, getItem, getTotalPrice,getTotalItems}}>
+    return <CartContext.Provider value={{cart,cartId,addItem,removeItem,clear, getItem, getTotalPrice,getTotalItems}}>
         {children}
     </CartContext.Provider>
 }

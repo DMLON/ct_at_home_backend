@@ -17,6 +17,7 @@ import cors from 'cors';
 import path,{ dirname } from 'path';
 import { fileURLToPath } from 'url';
 import router_requests from "./routers/requests.router.js";
+import { LogInfoMethod } from "./middlewares/logger.js";
 
 const __dirname = dirname(dirname(fileURLToPath(import.meta.url)));
 //F:\backup\Coderhouse\Backend\ct_at_home\backend\public\build\index.html
@@ -47,7 +48,21 @@ export const  server = async ()=>{
 
     app.use(flash());
     app.use(sessionMiddleware);
-    app.use(cors());
+    app.use((req, res, next) => {
+        res.header('Access-control-Allow-Origin', 'http://localhost:3000');
+        res.header(
+            "Access-Control-Allow-Headers",
+            "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+        );
+        res.header('Access-Control-Allow-Credentials', true);
+        if (req.method === 'OPTIONS') {
+            res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+            return res.status(200).json({});
+        }
+        next();
+        });
+
+    app.use(LogInfoMethod);
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     app.use(cookieParser());

@@ -32,8 +32,8 @@ const CartContent = ({enableEdit}) => {
                         <td>{itemQuantity.quantity}</td>
                         <td>${itemQuantity.quantity * itemQuantity.product.price}</td>
                         {enableEdit?<td>
-                            <button className="btn btn-danger mx-1" onClick={()=>removeItem(itemQuantity.product.id)}>X</button>
-                            <Link className="btn btn-success mx-1" to={"/item/"+itemQuantity.product.id}>Editar</Link>
+                            <button className="btn btn-danger mx-1" onClick={()=>removeItem(itemQuantity.product._id)}>X</button>
+                            <Link className="btn btn-success mx-1" to={"/item/"+itemQuantity.product._id}>Editar</Link>
                         </td>: <></>}
                         
                     </tr>

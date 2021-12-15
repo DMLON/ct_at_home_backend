@@ -2,7 +2,6 @@ import {productService} from '../services/index.js'
 import { loggerDefault, loggerErrors } from '../utils/loggers.js';
 
 export async function getProducts(req,res){
-    loggerDefault.info("GET Products");
     if(!req.params.id){
         try{
             const products = await productService.getAllProducts();
@@ -28,7 +27,6 @@ export async function getProducts(req,res){
 
 export async function createProduct(req,res){
     
-    loggerDefault.info("POST Create product");
     try{
         const product = await productService.createProduct(req.body);
         res.status(200).send({id:product._id});
@@ -43,7 +41,6 @@ export async function editProduct(req,res){
     
 
     const code = req.params.id;
-    loggerDefault.info(`PUT Products ${code}`);
     try{
         const result = await productService.updateProduct(code,req.body);
         res.status(200).send(result);
@@ -57,7 +54,6 @@ export async function editProduct(req,res){
 export async function deleteProduct(req,res){
 
     const code = req.params.id;
-    loggerDefault.info(`DELETE Products ${code}`);
 
     try{
         const result = await productService.deleteProduct(code);
