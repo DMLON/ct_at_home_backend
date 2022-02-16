@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const UserCollection = "user";
+const UserCollection = "users";
 
 
 const UserSchema = new mongoose.Schema({
@@ -21,7 +21,14 @@ const UserSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'cart'
         }
-    ] 
+    ],
+    orders:
+    [
+        {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'orders'
+        }
+    ]
 })
 
 
