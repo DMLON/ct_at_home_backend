@@ -4,6 +4,10 @@ import GenericDAOMongo from './generic.mongodb.dao.js';
 
 export default class OrdersDaoMongo extends GenericDAOMongo {
     constructor() {
-        super(ordersModel)
+        if (!instance) {
+            super(ordersModel)
+            instance = this
+        }
+        return instance
     }
 }

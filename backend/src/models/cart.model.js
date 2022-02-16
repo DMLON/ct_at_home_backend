@@ -26,4 +26,14 @@ const CartSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
+// Duplicate the ID field.
+CartSchema.virtual('id').get(function(){
+    return this._id.toHexString();
+});
+
+// Ensure virtual fields are serialised.
+CartSchema.set('toJSON', {
+    virtuals: true
+});
+
 export const cartModel = mongoose.model(CartCollection, CartSchema);

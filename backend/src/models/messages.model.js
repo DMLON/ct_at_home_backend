@@ -11,4 +11,14 @@ export const MessageSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
+// Duplicate the ID field.
+MessageSchema.virtual('id').get(function(){
+    return this._id.toHexString();
+});
+
+// Ensure virtual fields are serialised.
+MessageSchema.set('toJSON', {
+    virtuals: true
+});
+
 export const messagesModel = mongoose.model(MessagesCollection, MessageSchema);

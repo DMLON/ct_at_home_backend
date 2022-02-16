@@ -4,6 +4,10 @@ import GenericDAOMongo from './generic.mongodb.dao.js';
 
 export default class CartsDaoMongo extends GenericDAOMongo {
     constructor() {
-        super(cartModel)
+        if (!instance) {
+            super(cartModel)
+            instance = this
+        }
+        return instance
     }
 }

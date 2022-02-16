@@ -1,10 +1,11 @@
-import { userModel } from "../models/users.model.js";
 
 import passport from "passport";
 import {Strategy as LocalStrategy} from "passport-local";
 import bcrypt from 'bcryptjs';
 
 import {loggerWarnings,loggerErrors ,loggerDefault } from '../utils/loggers.js';
+import usersDao from "../database/daos/index.js";
+
 
 function isValidPassword(user, password) {
     return bcrypt.compareSync(password, user.password);
@@ -18,21 +19,20 @@ passport.use(
             passReqToCallback: true,
         },
     async (req,email, password, done) => {
-        userModel.findOne({ email:email }, (err, user) => {
-            if (err) return done(err);
 
+        try{
+            const user = await usersDao.getByEmail(email);
             if (!user) {
-                loggerErrors.error("User not found with email " + email);
-                return done(null, false);
+                throw {status:"error",message:"User not found with email " + email}
             }
-
             if (!isValidPassword(user, password)) {
-                loggerErrors.error("Invalid Password");
-                return done(null, false);
+                throw {status:"error",message:"Invalid Password"}
             }
-
             return done(null, user);
-        });
+        }catch(error){
+            loggerErrors.error(error);
+            return done(error);
+        }
     })
 );
 
@@ -45,42 +45,36 @@ passport.use(
             passReqToCallback: true,
         },
         async (req, email, password, done) => {
-            userModel.findOne({ email: email }, function (err, user) {
-                if (err) {
-                    loggerErrors.error("Error in SignUp: " + err);
-                    return done(err);
-                }
 
+            try{
+                const user = await usersDao.getByEmail(email);
                 if (user) {
-                    loggerErrors.error("User already exists");
-                    return done({error:true,status:"User already exists"}, false);
+                    throw {status:"error",message:"User already exists"}
                 }
-
-
                 const newUser = {
-					timestamp: new Date(),
-					email: email,
-					country: req.body.country,
-					password: createHash(password),
-					firstName: req.body.firstName,
-					lastName: req.body.lastName,
-					phone: req.body.phone,
-					address: req.body.address,
-					photo: req.body.photo,
-					age: req.body.age,
+                    email: email,
+                    country: req.body.country,
+                    password: createHash(password),
+                    firstName: req.body.firstName,
+                    lastName: req.body.lastName,
+                    phone: req.body.phone,
+                    address: req.body.address,
+                    photo: req.body.photo,
+                    age: req.body.age,
                     isAdmin: false, // Siempre es falso a menos que se cambie a mano en la db
-                    carts:[]
+                    cart:null,
+                    orders:[]
                 };
 
-                userModel.create(newUser, (err, userWithId) => {
-                    if (err) {
-                        loggerErrors.error("Error in Saving user: " + err);
-                        return done(err);
-                    }
-                    loggerDefault.info("User Registration succesful");
-                    return done(null, userWithId);
-                });
-            });
+                const userWithId = await usersDao.create(newUser)
+                    
+                loggerDefault.info("User Registration succesful");
+                return done(null, userWithId);
+                
+            }catch(error){
+                loggerErrors.error(error);
+                return done(error);
+            }
         }
     )
 );
@@ -95,11 +89,12 @@ function createHash(password) {
 // Se suele implementar proporcionando el ID de usuario al serializar y consultando el registro de usuario por ID de la base de datos al deserializar.
 
 passport.serializeUser((user, done) => {
-    done(null, user._id);
+    done(null, user.id);
 });
 
+
 passport.deserializeUser((id, done) => {
-    userModel.findById(id, done);
+    usersDao.getById(id).then(user => {done(null,user)});
 });
 
 export { passport };

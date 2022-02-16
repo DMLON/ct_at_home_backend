@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const ordersCollection = "orders";
 
-export const ordersSchema = new mongoose.Schema(
+export const OrdersSchema = new mongoose.Schema(
     {
         products: [
             {
@@ -15,7 +15,7 @@ export const ordersSchema = new mongoose.Schema(
                     name: { type: String, required: true, unique: true },
                     description: { type: String, required: true },
                     photo: { type: String, required: true },
-                    price: { type: Number, required: true },
+                    price: { type: Number, required: true, min: [0, "price can't be negative"] },
                     category: { type: String, required: true },
                 },
             },
@@ -26,4 +26,14 @@ export const ordersSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-export const ordersModel = mongoose.model(ordersCollection, ordersSchema);
+// Duplicate the ID field.
+OrdersSchema.virtual("id").get(function () {
+    return this._id.toHexString();
+});
+
+// Ensure virtual fields are serialised.
+OrdersSchema.set("toJSON", {
+    virtuals: true,
+});
+
+export const ordersModel = mongoose.model(ordersCollection, OrdersSchema);

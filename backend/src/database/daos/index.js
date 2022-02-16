@@ -1,7 +1,18 @@
+import UsersDaoMongo from './users.dao';
+import CartsDaoMongo from './carts.dao';
+import MessagesDaoMongo from './messages.dao';
+import OrdersDaoMongo from './orders.dao';
+import ProductsDaoMongo from './products.dao';
 
+const usersDao = new UsersDaoMongo();
+const cartsDao = new CartsDaoMongo();
+const messagesDao = new MessagesDaoMongo();
+const ordersDao = new OrdersDaoMongo();
+const productsDao = new ProductsDaoMongo();
 
-import * as cartsDao from './carts.dao';
-import * as messagesDao from './messages.dao';
-import * as ordersDao from './orders.dao';
-import * as productsDao from './products.dao';
-import * as usersDao from './users.dao';
+export default usersDao;
+export default cartsDao;
+export default messagesDao;
+export default ordersDao;
+export default productsDao;
+

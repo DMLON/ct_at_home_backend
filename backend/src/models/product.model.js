@@ -14,4 +14,14 @@ export const ProductSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
+// Duplicate the ID field.
+ProductSchema.virtual('id').get(function(){
+    return this._id.toHexString();
+});
+
+// Ensure virtual fields are serialised.
+ProductSchema.set('toJSON', {
+    virtuals: true
+});
+
 export const productModel = mongoose.model(ProductCollection, ProductSchema);

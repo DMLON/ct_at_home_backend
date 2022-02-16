@@ -4,6 +4,7 @@ import DbClient from './dbClient';
 import mongoose from 'mongoose';
 import { loggerDefault } from '../../utils/loggers';
 
+
 let MongoInstance = null;
 class MongoClient extends DbClient {
     constructor(dbConnectionString,options) {

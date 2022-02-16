@@ -4,6 +4,10 @@ import GenericDAOMongo from './generic.mongodb.dao.js';
 
 export default class MessagesDaoMongo extends GenericDAOMongo {
     constructor() {
-        super(messagesModel)
+        if (!instance) {
+            super(messagesModel)
+            instance = this
+        }
+        return instance
     }
 }

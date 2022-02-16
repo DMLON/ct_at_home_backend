@@ -28,4 +28,18 @@ const UserSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
+// Duplicate the ID field.
+UserSchema.virtual('id').get(function(){
+    return this._id.toHexString();
+});
+
+UserSchema.virtual('fullName').get(function(){
+    return this.firstName + ' ' + this.lastName;
+});
+
+// Ensure virtual fields are serialised.
+UserSchema.set('toJSON', {
+    virtuals: true
+});
+
 export const userModel = mongoose.model(UserCollection, UserSchema);
