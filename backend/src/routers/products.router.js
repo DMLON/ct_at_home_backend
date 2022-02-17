@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import isUserAdmin from '../middlewares/userAdminValidator.js';
+import {isUserAdmin} from '../middlewares/userValidator.js';
 import {productsController} from "../controllers/index.js"
 
 const router_products = Router();

@@ -3,9 +3,9 @@ import { GenericError } from "../utils/genericError.js";
 
 export async function createProduct(data) {
     try {
-        const exist = await productsDao.getByCode({ code: data.code });
+        const exist = await productsDao.getByName(data.name);
         if (exist) {
-            throw new GenericError({status:409 ,message:`Product ${data.code} already exists`});
+            throw new GenericError({status:409 ,message:`Product ${data.name} already exists`});
         }
         const response = await productsDao.create(data);
         return response;

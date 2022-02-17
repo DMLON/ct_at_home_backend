@@ -1,4 +1,5 @@
 import { productService } from "../services/index.js";
+import { GenericError } from "../utils/genericError.js";
 import { loggerDefault, loggerErrors } from "../utils/loggers.js";
 
 export async function getProducts(req, res) {
@@ -45,10 +46,15 @@ export async function editProduct(req, res) {
 
 export async function deleteProduct(req, res) {
     const code = req.params.id;
-
     try {
         const result = await productService.deleteProduct(code);
-        res.status(200).json(result);
+        if(result){
+            res.status(200).json({message: "Product deleted"});
+        }
+        else{
+            // Should not happen
+            throw GenericError({status:400,message:"Unknown error"});
+        }
     } catch (error) {
         loggerErrors.error(error.message);
         res.status(error?.status || 400).json(error);

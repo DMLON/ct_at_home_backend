@@ -1,6 +1,7 @@
 import { userModel } from '../models/users.model.js';
 import {cartService} from '../services/index.js'
 import { sendEmail } from '../utils/emailSender.js';
+import { GenericError } from '../utils/genericError.js';
 import { loggerDefault, loggerErrors } from '../utils/loggers.js';
 import { prettyfyCart } from "../utils/prettyfyObjects.js";
 import { sendMessage, sendMessageAdmin } from "../utils/whatsappSender.js";
@@ -11,34 +12,33 @@ export async function getProductsFromCart(req,res){
     const cartId = req.params.id;
     try{
         const products = await cartService.getAllProducts(cartId);
-        res.status(200).send(products);
+        res.status(200).json(products);
     }
     catch(error){
         loggerErrors.error(error.message)
-        res.status(400).send({error:true,status:error.message});
+        res.status(error?.status || 400).json(error);
     }
 }
 
 export async function createCart(req,res){
     try{
         loggerDefault.info(`Creating new cart`);
-
-        if (req.user){
-            const cart = await cartService.createCart();
-            const user = await userModel.findById(req.user._id);
-            user.carts.push(cart._id);
-            await user.save();
-            res.status(200).send({id:cart.id});
-        }
-        else{
-            throw new Error('User not found');
+        // Check if user already has a cart
+        // Two options:
+        // 1) If user has a cart, return it, else create a new one
+        // 2) If user has a cart, raise an error
+        let cart = null
+        cart = await cartService.getUserCart(req.user.id);
+        if(!cart){
+            // throw new GenericError({status:400,message:"User already has a cart"});
+            cart = await cartService.createCartForUser(req.user);
         }
         
-        
+        res.status(200).json({id:cart.id});
     }
     catch(error){
         loggerErrors.error(error.message)
-        res.status(400).send({error:true,status:error.message});
+        res.status(error?.status || 400).json(error);
     }
 }
 
@@ -46,12 +46,12 @@ export async function addProductToCart(req,res){
     const cartId = req.params.id;
     const {productId,quantity} = req.body;
     try{
-        const result = await cartService.addProductToCart(cartId,productId,quantity);
-        res.status(200).send(result);
+        await cartService.addProductToCart(cartId,productId,quantity);
+        res.status(200).json({status:200,message:"Product added to cart"});
     }
     catch(error){
         loggerErrors.error(error.message)
-        res.status(400).send({error:true,status:error.message});
+        res.status(error?.status || 400).json(error);
     }
 }
 
@@ -59,24 +59,24 @@ export async function deleteProductFromCart(req,res){
     const cartId = req.params.id;
     const productCode= req.params.id_prod;
     try{
-        const result = await cartService.deleteProductFromCart(cartId,productCode);
-        res.status(200).send(result);
+        await cartService.deleteProductFromCart(cartId,productCode);
+        res.status(200).json({status:200,message:"Product deleted from cart"});
     }
     catch(error){
         loggerErrors.error(error.message)
-        res.status(400).send({error:true,status:error.message});
+        res.status(error?.status || 400).json(error);
     }
 }
 
 export async function deleteCart(req,res){
     const cartId = req.params.id;
     try{
-        const result = await cartService.deleteCart(cartId);
-        res.status(200).send(result);
+        const result = await cartService.deleteCart(cartId,req.user.id);
+        res.status(200).json(result);
     }
     catch(error){
         loggerErrors.error(error.message)
-            res.status(400).send({error:true,status:error.message});
+        res.status(error?.status || 400).json(error);
     }
 }
 
@@ -114,11 +114,11 @@ export async function buyCart(req,res){
 
 
         loggerDefault.info("Order placed");
-        res.status(200).send({error:false,status:"Order placed"});
+        res.status(200).json({error:false,status:"Order placed"});
         
     }
     catch(error){
         loggerErrors.error(error.message)
-        res.status(400).send({error:true,status:error.message});
+        res.status(error?.status || 400).json(error);
     }
 }

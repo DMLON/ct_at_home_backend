@@ -1,5 +1,4 @@
 import { productModel } from '../../models/product.model.js';
-import { loggerErrors } from '../../utils/loggers.js';
 import GenericDAOMongo from './generic.mongodb.dao.js';
 
 let instance = null;
@@ -12,7 +11,7 @@ export default class ProductsDaoMongo extends GenericDAOMongo {
         return instance
     }
     
-    async getByCode(code) {
-        return await this.model.findOne({ code: code })
+    async getByName(name) {
+        return await this.model.findOne({ name: name })
     }
 }

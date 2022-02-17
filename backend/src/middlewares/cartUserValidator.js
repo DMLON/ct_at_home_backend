@@ -5,19 +5,19 @@ import { GenericError } from "../utils/genericError.js";
 // Checks if the user has the corresponding cart
 export const checkCartUser = async (req, res, next) => {
     if (!req.user){
-        next(new GenericError({status:401,message:'You must be logged in to access this page'}));
+        res.status(401).json(new GenericError({status:401,message:'You must be logged in to access this page'}));
         return
     }
 
     const user = await usersDao.getById(req.user.id)
     if (!user){
-        next(new GenericError({status:401,message:'User not found'}));
+        res.status(401).json(new GenericError({status:401,message:'User not found'}));
         return;
     }
     
     
-    if (user.cart == req.params.id){
-        next(new GenericError({status:404,message:'Cart not found on user'}));
+    if (user.cart != req.params.id){
+        res.status(404).json(new GenericError({status:404,message:'Cart not found on user'}));
         return;
     }
     // All good

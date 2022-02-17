@@ -42,7 +42,8 @@ class GenericDAOMongo extends GenericDAO {
 
     async create(object) {
         try {
-            return await this.model.create(object);
+            const obj = new this.model(object);
+            return  await obj.save();
         } catch (error) {
             throw new GenericError({ status: 500, message: "Error creating new object" + error });
         }
@@ -63,13 +64,16 @@ class GenericDAOMongo extends GenericDAO {
     async deleteById(idParaBorrar) {
         let result;
         try {
-            result = await productos.deleteOne({ _id: idParaBorrar });
+            result = await this.model.deleteOne({ _id: idParaBorrar });
         } catch (error) {
             throw new GenericError({ status: 500, message: `Error deleting object ` + error });
         }
 
         if (result.deletedCount == 0) {
-            throw new GenericError({ status: 404, message: `Object Not found with id: ${idBuscado}` });
+            throw new GenericError({ status: 404, message: `Object Not found with id: ${idParaBorrar}` });
+        }
+        else{
+            return true;
         }
     }
 }

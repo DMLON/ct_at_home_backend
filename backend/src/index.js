@@ -8,8 +8,12 @@ const passport = userServiceAuth.passport;
 import config from "./config.js";
 import { loggerDefault } from "./utils/loggers.js";
 import morgan from "morgan";
+
 import router_products from "./routers/products.router.js";
 import router_users from "./routers/users.router.js";
+import router_carts from "./routers/carts.router.js";
+
+
 import { GenericError, PageNotFoundError } from "./utils/genericError.js";
 
 //F:\backup\Coderhouse\Backend\ct_at_home\backend\public\build\index.html
@@ -46,7 +50,7 @@ export const server = async () => {
     app.use(express.static(__dirname + "/public"));
 
     app.use("/api/products", router_products);
-    // app.use('/api/cart',router_cart)
+    app.use('/api/cart',router_carts)
     app.use("/api/auth", router_users);
     // app.use("/api/upload",router_upload)
     // app.use("/api/orders",router_orders)
