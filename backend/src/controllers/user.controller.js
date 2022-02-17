@@ -1,4 +1,5 @@
 
+import { UserDTO } from "../database/dtos/user.dto.js";
 import {userServiceAuth} from "../services/index.js";
 import { sendEmail } from "../utils/emailSender.js";
 import { loggerDefault, loggerErrors } from "../utils/loggers.js";
@@ -9,7 +10,7 @@ const passport = userServiceAuth.passport;
 export async function logout(req, res){
     req.session.destroy((err) => {
         let result = null;
-        if (!err) result = { error: false, status: "ok", redirectURL: "/" };
+        if (!err) result = { status: "200", redirectURL: "/" };
         else result = { error: true, status: err };
         res.send(result);
     });
@@ -22,18 +23,19 @@ export async function signupSuccess(req, res){
     const userContent = prettyfyUser(req,req.user);
 
     await sendEmail("New user",userContent)
-    res.status(200).send(req.user);
+    res.status(200).json({status:"ok",message:"User created"});
 }
 export async function signupError(err,req,res,next){
-    res.status(500).send(err);
+    res.status(500).json(err);
 }
 
-//Place holder, only called after login returns good response, will not call res due to login already calling it
+// Place holder, only called after login returns good response, will not call res due to login already calling it
+// Returns a DTO to not send the password in the response
 export async function loginSuccess(req, res){
-    res.status(200).send(req.user);
+    res.status(200).json(new UserDTO(req.user));
 }
 
 export async function loginError(err,req,res,next){
     loggerErrors.error(`POST /auth/login - ${err}`);
-    res.status(500).send(err);
+    res.status(500).json(err);
 }

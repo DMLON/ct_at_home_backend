@@ -4,7 +4,7 @@ import { fullUrl } from "../utils/getUrl.js";
 export const prettyfyUser = (req,user) => {
     return `
     <h1>New user</h1>
-    <p>Time: ${user.timestamp.toISOString()}</p>
+    <p>Time: ${user.createdAt.toISOString()}</p>
     <p>First Name: ${user.firstName}</p>
     <p>Last Name: ${user.lastName}</p>
     <p>Email: ${user.email}</p>

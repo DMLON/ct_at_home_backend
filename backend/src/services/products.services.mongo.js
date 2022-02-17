@@ -1,5 +1,5 @@
-import { productsDao } from "../database/daos";
-import { GenericError } from "../utils/genericError";
+import { productsDao } from "../database/daos/index.js";
+import { GenericError } from "../utils/genericError.js";
 
 export async function createProduct(data) {
     try {

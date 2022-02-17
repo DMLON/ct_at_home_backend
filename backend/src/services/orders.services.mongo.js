@@ -1,4 +1,4 @@
-import { requestsModel } from "../models/requests.model.js";
+import { ordersModel } from "../models/orders.model.js";
 
 export async function createRequest(cartId,user) {
 	try {

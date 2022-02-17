@@ -5,6 +5,7 @@ import GenericDAO from "./generic.dao.js";
 
 class GenericDAOMongo extends GenericDAO {
     constructor(model) {
+        super();
         this.model = model;
     }
 

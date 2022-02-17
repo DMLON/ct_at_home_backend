@@ -1,9 +1,11 @@
+import dotenv from "dotenv";
+import minimist from "minimist";
 function setup() {
-    const dotenv = require("dotenv");
+    
+
     dotenv.config();
 
-    const argv = require("minimist")(process.argv.slice(2));
-
+    const argv = minimist(process.argv.slice(2));
     const { MONGODB_URI, SECRET, ADMIN_EMAIL, ADMIN_EMAIL_PASS, ADMIN_PHONE, TWILIO_AUTH_TOKEN, TWILIO_ACCOUNT_SID, TWILIO_PHONE } =
         process.env;
 

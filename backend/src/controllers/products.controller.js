@@ -5,19 +5,19 @@ export async function getProducts(req, res) {
     if (!req.params.id) {
         try {
             const products = await productService.getAllProducts();
-            res.status(200).send(products);
+            res.status(200).json(products);
         } catch (error) {
             loggerErrors.error(error.message);
-            res.status(error?.status || 400).send(error);
+            res.status(error?.status || 400).json(error);
         }
     } else {
         // Sino devuelvo especifico
         try {
             const product = await productService.getProduct(req.params.id);
-            res.status(200).send(product);
+            res.status(200).json(product);
         } catch (error) {
             loggerErrors.error(error.message);
-            res.status(error?.status || 400).send(error);
+            res.status(error?.status || 400).json(error);
         }
     }
 }
@@ -25,10 +25,10 @@ export async function getProducts(req, res) {
 export async function createProduct(req, res) {
     try {
         const product = await productService.createProduct(req.body);
-        res.status(201).send({ id: product._id });
+        res.status(201).json({ id: product._id });
     } catch (error) {
         loggerErrors.error(error.message);
-        res.status(error?.status || 400).send(error);
+        res.status(error?.status || 400).json(error);
     }
 }
 
@@ -36,10 +36,10 @@ export async function editProduct(req, res) {
     const code = req.params.id;
     try {
         const result = await productService.updateProduct(code, req.body);
-        res.status(201).send(result);
+        res.status(201).json(result);
     } catch (error) {
         loggerErrors.error(error.message);
-        res.status(error?.status || 400).send(error);
+        res.status(error?.status || 400).json(error);
     }
 }
 
@@ -48,9 +48,9 @@ export async function deleteProduct(req, res) {
 
     try {
         const result = await productService.deleteProduct(code);
-        res.status(200).send(result);
+        res.status(200).json(result);
     } catch (error) {
         loggerErrors.error(error.message);
-        res.status(error?.status || 400).send(error);
+        res.status(error?.status || 400).json(error);
     }
 }
