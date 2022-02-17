@@ -1,6 +1,6 @@
 
 
-async function validateUser(req,res,next){
+async function isUserAdmin(req,res,next){
     
     try{
         if(!req.user){
@@ -19,8 +19,8 @@ async function validateUser(req,res,next){
         }
     }
     catch(error){
-        next({ status: "error",descripcion: `${req.originalUrl} Not authorized - ${error}`});
+        next({ status: 401,message: `${req.originalUrl} Not authorized - ${error.message}`});
     }
 }
 
-export default validateUser;
+export default isUserAdmin;

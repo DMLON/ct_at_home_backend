@@ -11,4 +11,7 @@ export default class ProductsDaoMongo extends GenericDAOMongo {
         return instance
     }
     
+    async getByCode(code) {
+        return await this.model.findOne({ code: code })
+    }
 }

@@ -4,15 +4,8 @@ import MessagesDaoMongo from './messages.dao';
 import OrdersDaoMongo from './orders.dao';
 import ProductsDaoMongo from './products.dao';
 
-const usersDao = new UsersDaoMongo();
-const cartsDao = new CartsDaoMongo();
-const messagesDao = new MessagesDaoMongo();
-const ordersDao = new OrdersDaoMongo();
-const productsDao = new ProductsDaoMongo();
-
-export default usersDao;
-export default cartsDao;
-export default messagesDao;
-export default ordersDao;
-export default productsDao;
-
+export const usersDao = new UsersDaoMongo();
+export const cartsDao = new CartsDaoMongo();
+export const messagesDao = new MessagesDaoMongo();
+export const ordersDao = new OrdersDaoMongo();
+export const productsDao = new ProductsDaoMongo();

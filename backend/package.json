@@ -4,18 +4,8 @@
   "description": "E-Commerce of several 3D printed products",
   "main": "src/init.js",
   "scripts": {
-    "build": "webpack -w",
-    "start": "nodemon src/init.js",
-    "dev": "node src/init.js",
-    "debug": "nodemon --inspect src/init.js --config nodemon.json",
-    "test": "jest"
-  },
-  "jest": {
-    "watchPathIgnorePatterns": [
-      "json",
-      "sqlite"
-    ],
-    "testTimeout": 50000
+    "start:dev": "nodemon src/init.js --config nodemon.json",
+    "start": "node src/init.js"
   },
   "type": "module",
   "author": "",
@@ -24,18 +14,17 @@
     "@types/express": "^4.17.13",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
-    "connect-flash": "^0.1.1",
     "connect-mongodb-session": "^3.1.1",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
-    "firebase-admin": "^9.5.0",
     "joi": "^17.4.2",
     "log4js": "^6.3.0",
     "minimist": "^1.2.5",
     "mongoose": "^6.0.7",
+    "morgan": "^1.10.0",
     "multer": "^1.4.4",
     "nodemailer": "^6.7.2",
     "passport": "^0.5.0",
@@ -43,13 +32,6 @@
     "twilio": "^3.71.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.15.5",
-    "@babel/preset-env": "^7.15.6",
-    "@babel/preset-typescript": "^7.15.0",
-    "babel-jest": "^27.2.2",
-    "jest": "^27.2.2",
-    "nodemon": "^2.0.13",
-    "webpack": "^4.46.0",
-    "webpack-cli": "^3.3.12"
+    "nodemon": "^2.0.13"
   }
 }

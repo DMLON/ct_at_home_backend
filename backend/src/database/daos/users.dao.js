@@ -13,11 +13,7 @@ export default class UsersDaoMongo extends GenericDAOMongo {
     }
 
     async getByEmail(email) {
-        try {
-            return await this.model.findOne({ email: email });
-        } catch (error) {
-            throw error;
-        }
+        return await this.model.findOne({ email: email });
     }
 
 }

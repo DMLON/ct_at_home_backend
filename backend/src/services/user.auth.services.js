@@ -4,8 +4,7 @@ import {Strategy as LocalStrategy} from "passport-local";
 import bcrypt from 'bcryptjs';
 
 import {loggerWarnings,loggerErrors ,loggerDefault } from '../utils/loggers.js';
-import usersDao from "../database/daos/index.js";
-
+import {usersDao} from "../database/daos";
 
 function isValidPassword(user, password) {
     return bcrypt.compareSync(password, user.password);

@@ -1,5 +1,5 @@
 import { requestsModel } from "../models/requests.model.js";
-import { getAllRequests, getRequestsFromUser } from "../services/requests.services.mongo.js";
+import { getAllRequests, getRequestsFromUser } from "../services/orders.services.mongo.js";
 import { loggerDefault, loggerErrors } from "../utils/loggers.js";
 
 export const getRequests = async (req, res) => {

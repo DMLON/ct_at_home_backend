@@ -1,61 +1,63 @@
-import { productModel } from "../models/product.model.js";
+import { productsDao } from "../database/daos";
+import { GenericError } from "../utils/genericError";
 
 export async function createProduct(data) {
-	try {
-		const exist = await productModel.findOne({ code: data.code })
-		if (exist) {
-			throw new Error(`Product ${data.code} already exists`)
-		}
-		const response = await productModel.create({timestamp:new Date(), ...data})
-		return response
-	} catch (error) {
-		throw new Error(error)
-	}
+    try {
+        const exist = await productsDao.getByCode({ code: data.code });
+        if (exist) {
+            throw new GenericError({status:409 ,message:`Product ${data.code} already exists`});
+        }
+        const response = await productsDao.create(data);
+        return response;
+    } catch (error) {
+        throw new GenericError(error);
+    }
 }
 
 export async function getProduct(productId) {
-	try {
-		const product = await productModel.findById(productId)
-		if (!product) {
-			throw new Error('Product not found')
-		}
-		return product
-	} catch (error) {
-		throw new Error(error)
-	}
+    try {
+        const product = await productsDao.getById(productId);
+        return product;
+    } catch (error) {
+        if (error.status == 404) {
+            throw new GenericError({ status: 404, message: `Product Not found with id: ${productId}` });
+        } else {
+            throw new GenericError(error);
+        }
+    }
 }
 
 export async function getAllProducts() {
-	try {
-		const products = await productModel.find({});
-		return products;
-	} catch (error) {
-		throw new Error(error)
-	}
+    try {
+        const products = await productsDao.getAll();
+        return products;
+    } catch (error) {
+        throw new GenericError(error);
+    }
 }
 
-export async function deleteProduct(productId){
+export async function deleteProduct(productId) {
     try {
-		const exist = await productModel.findById(productId)
-		if (!exist) {
-			throw new Error(`Product ${productId} does not exist`)
-		}
-		const res = await productModel.deleteOne({code:exist.code});
-		return res;
-	} catch (error) {
-		throw new Error(error)
-	}
+        const res = await productsDao.deleteById(productId);
+        return res;
+    } catch (error) {
+        if (error.status == 404) {
+            throw new GenericError({ status: 404, message: `Product Not found with id: ${productId}` });
+        } else {
+            throw new GenericError(error);
+        }
+    }
 }
 
-export async function updateProduct(productId,data){
+export async function updateProduct(productId, data) {
     try {
-		const exist = await productModel.findById(productId)
-		if (!exist) {
-			throw new Error(`Product ${data.code} does not exist`)
-		}
-		const product = await productModel.updateOne({code:exist.code},{$set:{...data}});
-		return product;
-	} catch (error) {
-		throw new Error(error)
-	}
+        const product = await productsDao.update(productId, data);
+        return product;
+    } catch (error) {
+        if (error.status == 404) {
+            throw new GenericError({ status: 404, message: `Product Not found with id: ${productId}` });
+        } else {
+            throw new GenericError(error);
+        }
+    }
 }
