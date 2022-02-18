@@ -1,33 +1,39 @@
 import { cartsDao, productsDao, usersDao } from "../database/daos/index.js";
-import { cartModel } from "../models/cart.model.js";
-import { productModel } from "../models/product.model.js";
 import { GenericError } from "../utils/genericError.js";
 import { loggerDefault, loggerErrors } from "../utils/loggers.js";
-import { requestsService } from "./index.js";
+import { ordersService } from "./index.js";
 
-export async function createCartForUser(user) {
+export async function createCartForUser(userId) {
     try {
-        // Create cart
-        const cart = await cartsDao.create();
 
-        // Get user from DB and assign cart
-        user.cart = cart.id;
-        await usersDao.update(user.id, user);
+        // Start a transaction so it will rollback in case it does not work
+        const session = cartsDao.startSession();
+        let cart = null;
+        await session.withTransaction(async ()=>{
+            // Create cart
+            cart = await cartsDao.create();
 
-        // Assign cart to user (Two way binding)
-        cart.user = user.id;
-        await cartsDao.update(cart.id, cart);
+            // Get user from DB and assign cart
+            user.cart = cart.id;
+            await usersDao.update(userId, user);
 
-        loggerDefault.info(`Cart created for user ${user.id}`);
+            // Assign cart to user (Two way binding)
+            cart.user = userId;
+            await cartsDao.update(cart.id, cart);
+        })
+        
+        session.endSession();
+
+        loggerDefault.info(`Cart created for user ${userId}`);
         return cart;
     } catch (error) {
         throw new GenericError(error);
     }
 }
 
-export async function getUserCart(user_id) {
+export async function getUserCart(userId) {
     try {
-        const cart = await cartsDao.getByUserId(user_id);
+        const cart = await cartsDao.getByUserId(userId);
         return cart;
     } catch (error) {
         throw new GenericError(error);
@@ -82,6 +88,7 @@ export async function addProductToCart(cartId, productId, quantity) {
             throw new GenericError({ status: 400, message: "Quantity must be greater than 0" });
         }
 
+        // Check if cart already has product, if it has, update the quantity, else add it
         const idx = cart.products.findIndex((prd) => prd.product.id == productId);
 
         if (idx != -1) {
@@ -116,11 +123,11 @@ export async function deleteProductFromCart(cartId, productId) {
     }
 }
 
-export async function deleteCart(cartId,user_id) {
+export async function deleteCart(cartId,userId) {
     try {
         const resp = await cartsDao.deleteById(cartId);
 		// De ref user's cart
-		const user = await usersDao.getById(user_id);
+		const user = await usersDao.getById(userId);
 		user.cart = null;
 		await usersDao.update(user.id, user);
 
@@ -147,10 +154,22 @@ export async function buyCart(cartId, userId) {
             return product;
         });
 
-        await Promise.all(products.map((prd) => prd.save()));
+        const session = cartsDao.startSession();
 
-		// TODO: Fix create request. Add order to user. Delete cart if success
-        await requestsService.createRequest(cartId, userId);
+        await session.withTransaction(async ()=>{
+            await Promise.all(products.map((prd) => prd.save()));
+
+            // TODO: Fix create request. Add order to user. Delete cart if success
+            await ordersService.createOrder(userId);
+
+            // Delete cart from user
+            const user = await usersDao.getById(userId);
+            user.cart = null;
+            await usersDao.update(user.id, user);
+        })
+        
+        session.endSession();
+		
 
         // All good
         return true;

@@ -1,4 +1,4 @@
-import { GenericError } from "../../utils/genericError.js";
+import { GenericError, NotFound } from "../../utils/genericError.js";
 import { loggerErrors } from "../../utils/loggers.js";
 import MongoInstance from "../connector/mongodb.connector.js";
 import GenericDAO from "./generic.dao.js";
@@ -34,7 +34,7 @@ class GenericDAOMongo extends GenericDAO {
         }
 
         if (!buscado) {
-            throw new GenericError({ status: 404, message: `Object Not found with id: ${idBuscado}` });
+            throw new NotFound("Object", idBuscado);
         }
 
         return buscado;
@@ -70,11 +70,15 @@ class GenericDAOMongo extends GenericDAO {
         }
 
         if (result.deletedCount == 0) {
-            throw new GenericError({ status: 404, message: `Object Not found with id: ${idParaBorrar}` });
+            throw new NotFound("Object", idBuscado);
         }
         else{
             return true;
         }
+    }
+
+    async startSession(){
+        return await this.model.startSession();
     }
 }
 

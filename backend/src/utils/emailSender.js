@@ -20,13 +20,14 @@ const baseMailOptions = {
 };
 
 
-export const sendEmail =  async (subject,content) => {
-    try{
-        const mailOptions = {...baseMailOptions,subject,html:content};
-        const info = await transporter.sendMail(mailOptions);
-        loggerDefault.info('Message sent: %s', info.messageId);
+export const sendEmail =  async (subject,content,destinationEmail=null) => {
+    let mailOptions = null;
+    if(destinationEmail){
+        mailOptions = {...baseMailOptions,to:destinationEmail,subject,html:content};
     }
-    catch(error){
-        loggerErrors.error(error);
+    else{
+        mailOptions = {...baseMailOptions,subject,html:content};
     }
+    const info = await transporter.sendMail(mailOptions);
+    loggerDefault.info('Message sent: %s', info.messageId);
 }

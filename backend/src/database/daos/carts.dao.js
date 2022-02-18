@@ -18,4 +18,6 @@ export default class CartsDaoMongo extends GenericDAOMongo {
     async getCartByIdWithProducts(cartId) {
         return await this.model.findOne({ _id: cartId }).populate("products.product");
     }
+
+    
 }

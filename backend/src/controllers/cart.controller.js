@@ -31,7 +31,7 @@ export async function createCart(req,res){
         cart = await cartService.getUserCart(req.user.id);
         if(!cart){
             // throw new GenericError({status:400,message:"User already has a cart"});
-            cart = await cartService.createCartForUser(req.user);
+            cart = await cartService.createCartForUser(req.user.id);
         }
         
         res.status(200).json({id:cart.id});
@@ -83,14 +83,23 @@ export async function deleteCart(req,res){
 export async function buyCart(req,res){
     const cartId = req.params.id;
     try{
-        const result = await cartService.buyCart(cartId,req.user._id);
+        await cartService.buyCart(cartId,req.user.id);
         const cart = await cartService.getCartPopulated(cartId)
         const content = prettyfyCart(cart);
 
         // Send the cart info to the user whatsapp, then to the admin whatsapp and admin email
+        // Handle each sent separatedly, no need for ALL to succeed
         try{
             await sendEmail(`New order from ${req.user.firstName} ${req.user.lastName} - ${req.user.email}`,content);
             loggerDefault.info(`New order from ${req.user.firstName} ${req.user.lastName} - ${req.user.email}`);
+        }
+        catch(error){
+            loggerErrors.error(error.message);
+        }
+
+        try{
+            await sendEmail(`${req.user.firstName} ${req.user.lastName} Your new order has been placed`,content,req.user.email);
+            loggerDefault.info(`User Email sent`);
         }
         catch(error){
             loggerErrors.error(error.message);
@@ -112,9 +121,8 @@ export async function buyCart(req,res){
             loggerErrors.error(error.message);
         }
 
-
         loggerDefault.info("Order placed");
-        res.status(200).json({error:false,status:"Order placed"});
+        res.status(200).json({status:"Order placed"});
         
     }
     catch(error){

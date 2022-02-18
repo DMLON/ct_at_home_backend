@@ -1,68 +1,62 @@
-import { ordersModel } from "../models/orders.model.js";
+import { ordersDao, usersDao } from "../database/daos";
+import { GenericError } from "../utils/genericError";
 
-export async function createRequest(cartId,user) {
+
+export async function createOrder(userId) {
 	try {
-		const exist = await requestsModel.findOne({ cart: cartId }).and({ status: "pending" });
-		if (exist) {
-			throw new Error(`Request for cart ${cartId} already exists and is pending`)
-		}
-		const response = await requestsModel.create({timestamp:new Date(), cart: cartId, user: user._id, status: "pending"})
-		return response
+		const session = await ordersDao.startSession();
+		let order = null;
+		await session.withTransaction(async ()=>{
+            const user = await usersDao.getByIdWithOrdersAndCart(userId);
+			
+			order = await ordersDao.create({products: user.cart.products, status: "pending", user: userId});
+			user.orders.push(order.id)
+			await usersDao.update(userId, user);
+        })
+        
+        session.endSession();
+		
+		return order
 	} catch (error) {
-		throw new Error(error)
+		throw new GenericError(error)
 	}
 }
 
-export async function cancelRequest(cart,user) {
+export async function changeOrderStatus(orderId,status){
 	try {
-		const exist = await requestsModel.findOne({ cart: cart._id }).and({ status: "pending" });
-		if (exist) {
-			exist.status = "canceled";
-            await exist.save();
-		}else{
-            throw new Error(`Request for cart ${cart._id} does not exist`)
-        }
+		const order = await ordersDao.getById(orderId);
+
+		order.status = status;
+		return await ordersDao.update(orderId, order);
 	} catch (error) {
-		throw new Error(error)
+		throw new GenericError(error)
 	}
 }
 
-export async function getRequestsFromUser(user) {
+// User function
+export async function getOrdersFromUser(userId) {
 	try {
-		const reqs = await requestsModel.find({ user: user }).populate("cart").populate("user");
+		const reqs = await usersDao.getByIdWithOrders(userid);
 		if (reqs) {
             return reqs
 		}else{
-            throw new Error(`User ${user._id} has no requests`)
+            throw new GenericError({status:404,messages:`User ${userId} has no orders`})
         }
 	} catch (error) {
-		throw new Error(error)
+		throw new GenericError(error)
 	}
 }
 
-
-export async function getRequestsFromCart(cart) {
+// Admin function
+export async function getAllOrdersWithUsers() {
 	try {
-		const reqs = await requestsModel.find({ cart: cart._id }).populate("cart").populate("user");
-		if (reqs) {
-            return reqs
-		}else{
-            throw new Error(`Cart ${cart._id} has no requests`)
-        }
-	} catch (error) {
-		throw new Error(error)
-	}
-}
-
-export async function getAllRequests() {
-	try {
-		const reqs = await requestsModel.find().populate("cart").populate("user");
+		const reqs = await ordersDao.getAllWithUsers();
 		if (reqs) {
 			return reqs
 		}else{
-			throw new Error(`No requests`)
+			throw new GenericError({status:404,messages:`No Orders`})
 		}
 	} catch (error) {
-		throw new Error(error)
+		throw new GenericError(error)
 	}
 }

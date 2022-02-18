@@ -12,14 +12,12 @@ import morgan from "morgan";
 import router_products from "./routers/products.router.js";
 import router_users from "./routers/users.router.js";
 import router_carts from "./routers/carts.router.js";
-
+import router_config from "./routers/config.router.js";
 
 import { GenericError, PageNotFoundError } from "./utils/genericError.js";
 
-//F:\backup\Coderhouse\Backend\ct_at_home\backend\public\build\index.html
-
 export const server = async () => {
-    const { MONGODB_URI, SECRET, NODE_ENV, PORT, __dirname } = config;
+    const { MONGODB_URI, SECRET, NODE_ENV, PORT, __dirname, SESSION_AGE_SECONDS } = config;
     const app = express();
     app.use(morgan("combined"));
 
@@ -36,7 +34,7 @@ export const server = async () => {
         saveUninitialized: true,
         secret: SECRET,
         cookie: {
-            maxAge: 60 * 60 * 1000,
+            maxAge: SESSION_AGE_SECONDS * 1000,
             sameSite: NODE_ENV == "development" ? "lax" : "strict",
         },
         rolling: true,
@@ -52,6 +50,7 @@ export const server = async () => {
     app.use("/api/products", router_products);
     app.use('/api/cart',router_carts)
     app.use("/api/auth", router_users);
+    app.use("/api/config", router_config);
     // app.use("/api/upload",router_upload)
     // app.use("/api/orders",router_orders)
     // app.use("/api/messages",router_messages)
