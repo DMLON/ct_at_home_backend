@@ -3,7 +3,7 @@ import {cartService} from '../services/index.js'
 import { sendEmail } from '../utils/emailSender.js';
 import { GenericError } from '../utils/genericError.js';
 import { loggerDefault, loggerErrors } from '../utils/loggers.js';
-import { prettyfyCart } from "../utils/prettyfyObjects.js";
+import { prettyfyOrder } from "../utils/prettyfyObjects.js";
 import { sendMessage, sendMessageAdmin } from "../utils/whatsappSender.js";
 
 
@@ -83,9 +83,8 @@ export async function deleteCart(req,res){
 export async function buyCart(req,res){
     const cartId = req.params.id;
     try{
-        await cartService.buyCart(cartId,req.user.id);
-        const cart = await cartService.getCartPopulated(cartId)
-        const content = prettyfyCart(cart);
+        const order = await cartService.buyCart(cartId,req.user.id);
+        const content = prettyfyOrder(order);
 
         // Send the cart info to the user whatsapp, then to the admin whatsapp and admin email
         // Handle each sent separatedly, no need for ALL to succeed

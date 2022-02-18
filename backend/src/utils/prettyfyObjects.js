@@ -17,9 +17,9 @@ export const prettyfyUser = (req,user) => {
     `
 }
 
-export const prettyfyCart = (cart) => {
-    const totalPrice = cart.products.reduce((acc, item) => acc + item.product.price * item.quantity, 0)
-    const products = cart.products.map(p => {
+export const prettyfyOrder = (order) => {
+    const totalPrice = order.products.reduce((acc, item) => acc + item.product.price * item.quantity, 0)
+    const products = order.products.map(p => {
         return `
         <tr>
             <td>${p.product.name}</td>
@@ -32,7 +32,7 @@ export const prettyfyCart = (cart) => {
     
     return `
     <h1>New Order</h1>
-    <p>Time: ${cart.timestamp.toISOString()}</p>
+    <p>Time: ${new Date(order.createdAt).toISOString()}</p>
     <table>
         <thead>
             <tr>

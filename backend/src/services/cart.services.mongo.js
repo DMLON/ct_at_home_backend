@@ -155,24 +155,27 @@ export async function buyCart(cartId, userId) {
         });
 
         const session = cartsDao.startSession();
-
+        let order = null;
         await session.withTransaction(async ()=>{
             await Promise.all(products.map((prd) => prd.save()));
 
             // TODO: Fix create request. Add order to user. Delete cart if success
-            await ordersService.createOrder(userId);
+            order = await ordersService.createOrder(userId);
 
             // Delete cart from user
             const user = await usersDao.getById(userId);
             user.cart = null;
             await usersDao.update(user.id, user);
+
+            // Delete cart
+            await cartsDao.deleteById(cartId);
         })
         
         session.endSession();
 		
 
         // All good
-        return true;
+        return order;
     } catch (error) {
         throw new GenericError(error);
     }
