@@ -14,6 +14,6 @@ export default class OrdersDaoMongo extends GenericDAOMongo {
     }
 
     async getAllWithUsers() {
-        await this.model.find().populate("user");
+        return await this.model.find().populate("user");
     }
 }

@@ -1,3 +1,4 @@
+import { UserDTO } from "../database/dtos/user.dto.js";
 import { ordersService } from "../services/index.js";
 import { loggerDefault, loggerErrors } from "../utils/loggers.js";
 
@@ -5,12 +6,16 @@ import { loggerDefault, loggerErrors } from "../utils/loggers.js";
 export const getOrders = async (req, res) => {
     try {
         if (!req.params.userId) {
-            const requests = await getAllOrdersWithUsers();
-            res.status(200).json(requests);
+            const orders = await ordersService.getAllOrdersWithUsers();
+            // Remove unnecesary information from user
+            if(orders.length > 0){
+                orders.forEach(order => {order.user = new UserDTO(order.user)});
+            }
+            res.status(200).json(orders);
         } else {
             // Sino devuelvo especifico
-            const requests = await getOrdersFromUser(req.params.userId);
-            res.status(200).json(requests);
+            const orders = await ordersService.getOrdersFromUser(req.params.userId);
+            res.status(200).json(orders);
         }
     } catch (error) {
         loggerErrors.error(error.message);
