@@ -1,5 +1,4 @@
 import { ordersService } from "../services/index.js";
-import { getAllRequests, getRequestsFromUser } from "../services/orders.services.mongo.js";
 import { loggerDefault, loggerErrors } from "../utils/loggers.js";
 
 // Admin function
@@ -53,4 +52,4 @@ export const cancelOrderUser = async (req, res) => {
         loggerErrors.error(error.message);
         res.status(error?.status || 400).json(error);
     }
-}
+};

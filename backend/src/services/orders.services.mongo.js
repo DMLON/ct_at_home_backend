@@ -1,5 +1,5 @@
-import { ordersDao, usersDao } from "../database/daos";
-import { GenericError } from "../utils/genericError";
+import { ordersDao, usersDao } from "../database/daos/index.js";
+import { GenericError } from "../utils/genericError.js";
 
 
 export async function createOrder(userId) {

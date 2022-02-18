@@ -2,18 +2,12 @@ import express from "express";
 import session from "express-session";
 import MongoSession from "connect-mongodb-session";
 import cookieParser from "cookie-parser";
-// import {router_cart, router_products, router_users, router_upload, router_orders, router_messages} from "./routers/index.js"
+import {router_carts, router_products, router_users, router_upload, router_orders, router_messages,router_config} from "./routers/index.js"
 import { userServiceAuth } from "./services/index.js";
 const passport = userServiceAuth.passport;
 import config from "./config.js";
 import { loggerDefault } from "./utils/loggers.js";
 import morgan from "morgan";
-
-import router_products from "./routers/products.router.js";
-import router_users from "./routers/users.router.js";
-import router_carts from "./routers/carts.router.js";
-import router_config from "./routers/config.router.js";
-
 import { GenericError, PageNotFoundError } from "./utils/genericError.js";
 
 export const server = async () => {
@@ -51,9 +45,9 @@ export const server = async () => {
     app.use('/api/cart',router_carts)
     app.use("/api/auth", router_users);
     app.use("/api/config", router_config);
-    // app.use("/api/upload",router_upload)
-    // app.use("/api/orders",router_orders)
-    // app.use("/api/messages",router_messages)
+    app.use("/api/upload",router_upload)
+    app.use("/api/orders",router_orders)
+    app.use("/api/messages",router_messages)
     app.use("*", (req, res) => {
         res.status(404).json(PageNotFoundError);
     });

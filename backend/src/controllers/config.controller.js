@@ -1,5 +1,5 @@
-import config from "../config";
-import { ServerInfo } from "../database/dtos/serverInfo.dto";
+import config from "../config.js";
+import { ServerInfo } from "../database/dtos/serverInfo.dto.js";
 
 
 export async function getConfigs(req, res) {

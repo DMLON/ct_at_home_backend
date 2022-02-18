@@ -6,4 +6,4 @@ const router_config = Router();
 
 router_config.get('/', isLogged,isUserAdmin,configController.getConfigs);
 
-export default router_cart;
+export default router_config;

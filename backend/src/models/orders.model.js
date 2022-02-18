@@ -27,11 +27,11 @@ export const OrdersSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-var CounterSchema = Schema({
-    counterid: { type: string, required: true },
+var CounterSchema = new mongoose.Schema({
+    counterid: { type: String, required: true },
     val: { type: Number, default: 0 }
 });
-var counter = mongoose.model('counter', CounterSchema);
+const counter = mongoose.model('counter', CounterSchema);
 
 // Store in db a mini collection used for incrementing the order count (Like in MySQL auto increment)
 OrdersSchema.pre('save', function(next) {
