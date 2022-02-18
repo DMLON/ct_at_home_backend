@@ -19,15 +19,21 @@ Set on the .env file the following settings
 PORT=xxxx
 
 MONGODB_URI= // MongoDB URL
+
 SECRET= // Cookies secret
+
 NODE_ENV=development or production
 
 ADMIN_PHONE= // Admin phone
+
 ADMIN_EMAIL= // Admin email
+
 ADMIN_EMAIL_PASS= // admin email password
 
 TWILIO_AUTH_TOKEN=
+
 TWILIO_ACCOUNT_SID=
+
 TWILIO_PHONE=
 
 SESSION_AGE_SECONDS= 0 // time for session to expire
