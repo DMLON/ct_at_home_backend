@@ -34,8 +34,14 @@ var CounterSchema = new mongoose.Schema({
 const counter = mongoose.model('counter', CounterSchema);
 
 // Store in db a mini collection used for incrementing the order count (Like in MySQL auto increment)
-OrdersSchema.pre('save', function(next) {
+OrdersSchema.pre('save', async function(next) {
     const doc = this;
+    const c = await counter.find({counterid: 'orders'});
+    if (c.length === 0) {
+        const tempCounter = new counter({ counterid: 'orders', val: 0 });
+        await tempCounter.save();
+    }
+
     counter.findByIdAndUpdate({counterid: 'orders'}, {$inc: { seq: 1} },{ new: true, upsert: true }, function(error, c)   {
         if(error)
             return next(error);

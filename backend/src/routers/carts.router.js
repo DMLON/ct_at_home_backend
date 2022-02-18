@@ -9,7 +9,7 @@ const router_carts = Router();
 router_carts.get('/:id/products', isLogged,checkCartUser,cartController.getProductsFromCart);
 
 // Push items into a selected cart
-// Neds productCode and quantity in body
+// Neds productId and quantity in body
 router_carts.post('/:id/products',isLogged, checkCartUser,cartController.addProductToCart);
 
 // Delete a selected product from a selected cart

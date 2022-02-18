@@ -1,19 +1,21 @@
 import { Router } from "express";
-import { isUserAdmin } from "../middlewares/userValidator.js";
-import { productsController } from "../controllers/index.js";
+import { messagesController } from "../controllers/index.js";
+import { isLogged } from "../middlewares/userValidator.js";
 
 const router_messages = Router();
 
-// Get a product by id or all products if none is given
-router_messages.get("/:id?", productsController.getProducts);
 
-// Create new product with body info
-router_messages.post("/", isUserAdmin, productsController.createProduct);
+// Create new chat
+router_messages.ws("/", messagesController.chatMessagesSocket);
 
-// Edit product via ID
-router_messages.put("/:id", isUserAdmin, productsController.editProduct);
 
-// Delete product via ID
-router_messages.delete("/:id", isUserAdmin, productsController.deleteProduct);
+// This should render the view
+router_messages.get("/", isLogged ,messagesController.showChat);
+
+
+
+
+// View chats from user
+router_messages.get("/:email", messagesController.showMessages);
 
 export default router_messages;

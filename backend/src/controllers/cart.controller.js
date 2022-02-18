@@ -88,6 +88,7 @@ export async function buyCart(req,res){
 
         // Send the cart info to the user whatsapp, then to the admin whatsapp and admin email
         // Handle each sent separatedly, no need for ALL to succeed
+        // Admin email
         try{
             await sendEmail(`New order from ${req.user.firstName} ${req.user.lastName} - ${req.user.email}`,content);
             loggerDefault.info(`New order from ${req.user.firstName} ${req.user.lastName} - ${req.user.email}`);
@@ -96,6 +97,7 @@ export async function buyCart(req,res){
             loggerErrors.error(error.message);
         }
 
+        // User email
         try{
             await sendEmail(`${req.user.firstName} ${req.user.lastName} Your new order has been placed`,content,req.user.email);
             loggerDefault.info(`User Email sent`);

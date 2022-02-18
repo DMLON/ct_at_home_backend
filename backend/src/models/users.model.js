@@ -16,7 +16,7 @@ const UserSchema = new mongoose.Schema(
         isAdmin: { type: Boolean,default:false },
         cart: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "cart",
+            ref: "carts",
         },
         orders: [
             {

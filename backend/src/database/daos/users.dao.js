@@ -32,7 +32,7 @@ export default class UsersDaoMongo extends GenericDAOMongo {
     }
 
     async getByIdWithOrdersAndCart(id) {
-        const buscado = await this.model.findById(id).populate("orders").populate("cart");
+        const buscado = await this.model.findById(id).populate("orders").populate({path:"cart",populate:{path:"products.product"}});
         if (!buscado) {
             throw new NotFound("User",id);
         }

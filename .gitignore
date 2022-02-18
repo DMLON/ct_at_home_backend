@@ -6,3 +6,4 @@ backend/bfg.jar
 .env
 firebaseCredentialsMine.js
 node_modules
+backend/yarn.lock

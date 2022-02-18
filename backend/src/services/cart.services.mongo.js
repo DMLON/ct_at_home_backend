@@ -7,7 +7,7 @@ export async function createCartForUser(userId) {
     try {
 
         // Start a transaction so it will rollback in case it does not work
-        const session = cartsDao.startSession();
+        const session = await cartsDao.startSession();
         let cart = null;
         await session.withTransaction(async ()=>{
             // Create cart
@@ -149,12 +149,12 @@ export async function buyCart(cartId, userId) {
 
         const products = cart.products.map((prd) => {
             const product = prd.product;
-            if (product.stock - prd.quantity > 0) product.stock = product.stock - prd.quantity;
+            if (product.stock - prd.quantity >= 0) product.stock = product.stock - prd.quantity;
             else throw new GenericError({ status: 400, message: "Not enough stock" });
             return product;
         });
 
-        const session = cartsDao.startSession();
+        const session = await cartsDao.startSession();
         let order = null;
         await session.withTransaction(async ()=>{
             await Promise.all(products.map((prd) => prd.save()));
@@ -171,7 +171,7 @@ export async function buyCart(cartId, userId) {
             await cartsDao.deleteById(cartId);
         })
         
-        session.endSession();
+        await session.endSession();
 		
 
         // All good

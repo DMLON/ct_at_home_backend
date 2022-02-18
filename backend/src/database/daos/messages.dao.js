@@ -11,4 +11,8 @@ export default class MessagesDaoMongo extends GenericDAOMongo {
         }
         return instance
     }
+
+    async getMessagesByEmail(email) {
+        return await this.model.find({ email:email }).sort({ createdAt: -1 });
+    }
 }

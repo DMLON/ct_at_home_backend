@@ -6,7 +6,7 @@ function setup() {
     dotenv.config();
 
     const argv = minimist(process.argv.slice(2));
-    const { MONGODB_URI, SECRET, ADMIN_EMAIL, ADMIN_EMAIL_PASS, ADMIN_PHONE, TWILIO_AUTH_TOKEN, TWILIO_ACCOUNT_SID, TWILIO_PHONE } =
+    const { MONGODB_URI, SECRET, ADMIN_EMAIL, ADMIN_EMAIL_PASS, ADMIN_PHONE, TWILIO_AUTH_TOKEN, TWILIO_ACCOUNT_SID, TWILIO_PHONE, SESSION_AGE_SECONDS } =
         process.env;
 
     const NODE_ENV = argv.env || process.env.NODE_ENV || "development";
@@ -29,6 +29,7 @@ function setup() {
         TWILIO_AUTH_TOKEN,
         TWILIO_ACCOUNT_SID,
         TWILIO_PHONE,
+        SESSION_AGE_SECONDS
     };
 }
 
@@ -48,6 +49,7 @@ const {
     TWILIO_AUTH_TOKEN,
     TWILIO_ACCOUNT_SID,
     TWILIO_PHONE,
+    SESSION_AGE_SECONDS
 } = setup();
 
 export default {
@@ -61,5 +63,6 @@ export default {
     TWILIO_AUTH_TOKEN,
     TWILIO_ACCOUNT_SID,
     TWILIO_PHONE,
-    __dirname
+    __dirname,
+    SESSION_AGE_SECONDS
 };

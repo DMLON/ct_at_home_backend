@@ -1,4 +1,5 @@
 import { ordersDao, usersDao } from "../database/daos/index.js";
+import { ProductDTO } from "../database/dtos/product.dto.js";
 import { GenericError } from "../utils/genericError.js";
 
 
@@ -8,13 +9,13 @@ export async function createOrder(userId) {
 		let order = null;
 		await session.withTransaction(async ()=>{
             const user = await usersDao.getByIdWithOrdersAndCart(userId);
-			
-			order = await ordersDao.create({products: user.cart.products, status: "pending", user: userId});
+			const products = user.cart.products.map(product=>{ return { product: new ProductDTO(product.product), quantity: product.quantity }}); 
+			order = await ordersDao.create({products: products, status: "pending", user: userId});
 			user.orders.push(order.id)
 			await usersDao.update(userId, user);
         })
         
-        session.endSession();
+        await session.endSession();
 		
 		return order
 	} catch (error) {
